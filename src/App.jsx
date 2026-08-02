@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import DailyBriefing from './components/DailyBriefing.jsx'
 import NewsFeed from './components/NewsFeed.jsx'
 import FilterBar from './components/FilterBar.jsx'
@@ -53,6 +54,7 @@ export default function App() {
           <NewsFeed country={country} category={category} activeSources={activeSources} />
         </main>
       </div>
+      <Analytics />
     </div>
   )
 }
