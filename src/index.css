@@ -1,0 +1,211 @@
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --border: #e5e2da;
+  --text: #1c1b18;
+  --text-muted: #6b6862;
+  --accent: #1a56db;
+  --domestic: #1a56db;
+  --international: #b45309;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16151d;
+    --surface: #1e1d26;
+    --border: #302e3a;
+    --text: #f2f1ec;
+    --text-muted: #a7a49c;
+    --accent: #6ea8fe;
+    --domestic: #6ea8fe;
+    --international: #f0b366;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+}
+
+.app {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  margin: 4px 0 24px;
+  color: var(--text-muted);
+}
+
+.briefing {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+}
+
+.briefing-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.briefing-header h2 {
+  font-size: 1.05rem;
+  margin: 0;
+  flex: 1;
+}
+
+.briefing-date {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.briefing-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.briefing-item-summary {
+  margin: 0 0 4px;
+  line-height: 1.5;
+}
+
+.briefing-item-source {
+  font-size: 0.82rem;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.briefing-disclaimer {
+  margin: 16px 0 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.news-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.news-card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--domestic);
+}
+
+.badge-international {
+  background: var(--international);
+}
+
+.news-card-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.news-card-title {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.news-card-summary {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.news-card-link {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.status-text {
+  color: var(--text-muted);
+  padding: 24px 0;
+  text-align: center;
+}
+
+.status-error {
+  color: #dc2626;
+}
