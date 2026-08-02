@@ -1,4 +1,4 @@
--- econ-news 크론 설정
+-- 경제줍줍 크론 설정
 -- Supabase 대시보드 > SQL Editor에서 딱 한 번 실행하면 된다.
 -- 실행 전에 아래 두 곳을 프로젝트 값으로 바꿀 것:
 --   1. <PROJECT_REF> → 프로젝트 참조 ID (예: abcdefghijklmnop)

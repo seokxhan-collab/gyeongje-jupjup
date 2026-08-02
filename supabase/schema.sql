@@ -1,4 +1,4 @@
--- econ-news 스키마
+-- 경제줍줍 스키마
 -- 원문 전체는 절대 저장하지 않는다: title, RSS가 제공하는 짧은 summary, link만 저장한다.
 
 create table if not exists news (
