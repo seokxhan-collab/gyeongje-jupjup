@@ -12,20 +12,25 @@ export default function FilterBar({
   const visibleSources = SOURCES.filter((s) => country === 'all' || s.country === country)
 
   return (
-    <div className="filter-bar">
-      <div className="filter-group filter-group-category">
-        {[{ value: 'all', label: '전체' }, ...CATEGORIES].map((opt) => (
-          <button
-            key={opt.value}
-            className={`chip chip-category ${category === opt.value ? 'active' : ''}`}
-            onClick={() => onCategoryChange(opt.value)}
-          >
-            {opt.label}
-          </button>
-        ))}
+    <nav className="filter-nav">
+      <div className="filter-section">
+        <h4 className="filter-heading">분야</h4>
+        <div className="filter-list">
+          {[{ value: 'all', label: '전체' }, ...CATEGORIES].map((opt) => (
+            <button
+              key={opt.value}
+              className={`nav-item ${category === opt.value ? 'active' : ''}`}
+              onClick={() => onCategoryChange(opt.value)}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="filter-row">
-        <div className="filter-group">
+
+      <div className="filter-section">
+        <h4 className="filter-heading">지역</h4>
+        <div className="filter-list filter-list-row">
           {[
             { value: 'all', label: '전체' },
             { value: 'domestic', label: '국내' },
@@ -33,18 +38,22 @@ export default function FilterBar({
           ].map((opt) => (
             <button
               key={opt.value}
-              className={`chip chip-country ${country === opt.value ? 'active' : ''}`}
+              className={`chip ${country === opt.value ? 'active' : ''}`}
               onClick={() => onCountryChange(opt.value)}
             >
               {opt.label}
             </button>
           ))}
         </div>
-        <div className="filter-group filter-group-sources">
+      </div>
+
+      <div className="filter-section">
+        <h4 className="filter-heading">언론사</h4>
+        <div className="filter-list filter-list-row">
           {visibleSources.map((s) => (
             <button
               key={s.source}
-              className={`chip ${activeSources.has(s.source) ? 'active' : ''}`}
+              className={`chip chip-source ${activeSources.has(s.source) ? 'active' : ''}`}
               onClick={() => onToggleSource(s.source)}
             >
               {s.source}
@@ -52,6 +61,6 @@ export default function FilterBar({
           ))}
         </div>
       </div>
-    </div>
+    </nav>
   )
 }

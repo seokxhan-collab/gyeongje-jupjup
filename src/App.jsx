@@ -1,8 +1,28 @@
+import { useState } from 'react'
 import DailyBriefing from './components/DailyBriefing.jsx'
 import NewsFeed from './components/NewsFeed.jsx'
+import FilterBar from './components/FilterBar.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 
 export default function App() {
+  const [country, setCountry] = useState('all')
+  const [category, setCategory] = useState('all')
+  const [activeSources, setActiveSources] = useState(new Set())
+
+  function handleCountryChange(next) {
+    setCountry(next)
+    setActiveSources(new Set())
+  }
+
+  function toggleSource(source) {
+    setActiveSources((prev) => {
+      const next = new Set(prev)
+      if (next.has(source)) next.delete(source)
+      else next.add(source)
+      return next
+    })
+  }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -12,8 +32,27 @@ export default function App() {
         </div>
         <ThemeToggle />
       </header>
-      <DailyBriefing />
-      <NewsFeed />
+
+      <div className="app-shell">
+        <aside className="sidebar-briefing">
+          <DailyBriefing />
+        </aside>
+
+        <aside className="sidebar-filters">
+          <FilterBar
+            country={country}
+            onCountryChange={handleCountryChange}
+            category={category}
+            onCategoryChange={setCategory}
+            activeSources={activeSources}
+            onToggleSource={toggleSource}
+          />
+        </aside>
+
+        <main className="main-content">
+          <NewsFeed country={country} category={category} activeSources={activeSources} />
+        </main>
+      </div>
     </div>
   )
 }

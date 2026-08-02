@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient.js'
 import NewsCard from './NewsCard.jsx'
-import FilterBar from './FilterBar.jsx'
 
 const PAGE_SIZE = 60
 
-export default function NewsFeed() {
+export default function NewsFeed({ country, category, activeSources }) {
   const [news, setNews] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [country, setCountry] = useState('all')
-  const [category, setCategory] = useState('all')
-  const [activeSources, setActiveSources] = useState(new Set())
 
   useEffect(() => {
     let cancelled = false
@@ -40,31 +36,8 @@ export default function NewsFeed() {
     }
   }, [country, category, activeSources])
 
-  function handleCountryChange(next) {
-    setCountry(next)
-    setActiveSources(new Set())
-  }
-
-  function toggleSource(source) {
-    setActiveSources((prev) => {
-      const next = new Set(prev)
-      if (next.has(source)) next.delete(source)
-      else next.add(source)
-      return next
-    })
-  }
-
   return (
     <section>
-      <FilterBar
-        country={country}
-        onCountryChange={handleCountryChange}
-        category={category}
-        onCategoryChange={setCategory}
-        activeSources={activeSources}
-        onToggleSource={toggleSource}
-      />
-
       {loading && <p className="status-text">불러오는 중…</p>}
       {error && <p className="status-text status-error">뉴스를 불러오지 못했습니다: {error}</p>}
       {!loading && !error && news.length === 0 && (
