@@ -30,8 +30,10 @@ export default function DailyBriefing() {
   return (
     <section className="briefing">
       <div className="briefing-header">
-        <Sparkles size={18} />
-        <h2>오늘의 경제 브리핑</h2>
+        <div className="briefing-header-title">
+          <Sparkles size={18} />
+          <h2>오늘의 경제 브리핑</h2>
+        </div>
         <span className="briefing-date">{briefing.briefing_date}</span>
       </div>
       <ol className="briefing-list">
