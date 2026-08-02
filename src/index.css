@@ -38,6 +38,40 @@
   }
 }
 
+:root[data-theme='light'] {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --border: #e5e2da;
+  --text: #1c1b18;
+  --text-muted: #5b584f;
+  --accent: #1a56db;
+  --domestic: #1a56db;
+  --international: #b45309;
+  --cat-markets: #4f46e5;
+  --cat-real_estate: #0d9488;
+  --cat-industry: #c2410c;
+  --cat-policy: #be123c;
+  --cat-crypto: #7c3aed;
+  --cat-general: #57534e;
+}
+
+:root[data-theme='dark'] {
+  --bg: #16151d;
+  --surface: #1e1d26;
+  --border: #33313d;
+  --text: #f5f4ef;
+  --text-muted: #b5b2a9;
+  --accent: #6ea8fe;
+  --domestic: #6ea8fe;
+  --international: #f0b366;
+  --cat-markets: #a5b4fc;
+  --cat-real_estate: #5eead4;
+  --cat-industry: #fdba74;
+  --cat-policy: #fda4af;
+  --cat-crypto: #c4b5fd;
+  --cat-general: #c9c6bc;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -58,11 +92,37 @@ body {
   padding: 32px 20px 72px;
 }
 
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .app-header h1 {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+
+.theme-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .app-header p {

@@ -6,6 +6,14 @@
     <meta name="theme-color" content="#FBFAF7" />
     <meta name="description" content="국내외 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트" />
     <title>경제줍줍</title>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('theme')
+          if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t)
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
