@@ -10,6 +10,7 @@ export default function NewsFeed() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [country, setCountry] = useState('all')
+  const [category, setCategory] = useState('all')
   const [activeSources, setActiveSources] = useState(new Set())
 
   useEffect(() => {
@@ -19,11 +20,12 @@ export default function NewsFeed() {
 
     let query = supabase
       .from('news')
-      .select('id, source, source_country, title, summary, link, published_at')
+      .select('id, source, source_country, category, title, summary, link, published_at')
       .order('published_at', { ascending: false })
       .limit(PAGE_SIZE)
 
     if (country !== 'all') query = query.eq('source_country', country)
+    if (category !== 'all') query = query.eq('category', category)
     if (activeSources.size > 0) query = query.in('source', Array.from(activeSources))
 
     query.then(({ data, error }) => {
@@ -36,7 +38,7 @@ export default function NewsFeed() {
     return () => {
       cancelled = true
     }
-  }, [country, activeSources])
+  }, [country, category, activeSources])
 
   function handleCountryChange(next) {
     setCountry(next)
@@ -57,6 +59,8 @@ export default function NewsFeed() {
       <FilterBar
         country={country}
         onCountryChange={handleCountryChange}
+        category={category}
+        onCategoryChange={setCategory}
         activeSources={activeSources}
         onToggleSource={toggleSource}
       />

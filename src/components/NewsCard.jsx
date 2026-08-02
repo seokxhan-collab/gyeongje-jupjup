@@ -1,11 +1,17 @@
 import { ExternalLink } from 'lucide-react'
 import { formatRelativeTime } from '../lib/time.js'
+import { categoryLabel } from '../lib/categories.js'
 
 export default function NewsCard({ item }) {
   return (
     <article className="news-card">
       <div className="news-card-meta">
-        <span className={`badge badge-${item.source_country}`}>{item.source}</span>
+        <div className="news-card-tags">
+          <span className={`badge badge-${item.source_country}`}>{item.source}</span>
+          <span className={`badge badge-category badge-category-${item.category}`}>
+            {categoryLabel(item.category)}
+          </span>
+        </div>
         <span className="news-card-time">{formatRelativeTime(item.published_at)}</span>
       </div>
       <h3 className="news-card-title">{item.title}</h3>

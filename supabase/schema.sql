@@ -5,6 +5,8 @@ create table if not exists news (
   id uuid primary key default gen_random_uuid(),
   source text not null,
   source_country text not null check (source_country in ('domestic', 'international')),
+  category text not null default 'general'
+    check (category in ('markets', 'real_estate', 'industry', 'policy', 'crypto', 'general')),
   title text not null,
   summary text,
   link text not null unique,
@@ -15,6 +17,7 @@ create table if not exists news (
 create index if not exists news_published_at_idx on news (published_at desc);
 create index if not exists news_source_country_idx on news (source_country);
 create index if not exists news_source_idx on news (source);
+create index if not exists news_category_idx on news (category);
 
 create table if not exists briefings (
   id uuid primary key default gen_random_uuid(),
