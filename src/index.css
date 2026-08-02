@@ -173,6 +173,13 @@ body {
   padding: 24px;
 }
 
+@media (min-width: 960px) {
+  .sidebar-briefing .briefing {
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+  }
+}
+
 .briefing-header {
   margin-bottom: 16px;
 }
