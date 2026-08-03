@@ -4,11 +4,13 @@ import DailyBriefing from './components/DailyBriefing.jsx'
 import NewsFeed from './components/NewsFeed.jsx'
 import FilterBar from './components/FilterBar.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
+import SearchBar from './components/SearchBar.jsx'
 
 export default function App() {
   const [country, setCountry] = useState('all')
   const [category, setCategory] = useState('all')
   const [activeSources, setActiveSources] = useState(new Set())
+  const [search, setSearch] = useState('')
 
   function handleCountryChange(next) {
     setCountry(next)
@@ -51,7 +53,8 @@ export default function App() {
         </aside>
 
         <main className="main-content">
-          <NewsFeed country={country} category={category} activeSources={activeSources} />
+          <SearchBar value={search} onChange={setSearch} />
+          <NewsFeed country={country} category={category} activeSources={activeSources} search={search} />
         </main>
       </div>
       <Analytics />
