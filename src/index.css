@@ -286,6 +286,10 @@ body {
   color: var(--text-muted);
 }
 
+.filter-list-row .chip.active {
+  color: #fff;
+}
+
 @media (min-width: 960px) {
   .filter-list:not(.filter-list-row) {
     flex-direction: column;
