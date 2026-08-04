@@ -126,17 +126,10 @@ body {
   gap: 10px;
 }
 
-.site-brand-mark {
+.site-brand svg {
   flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #7c3aed));
-  color: #fff;
-  box-shadow: 0 4px 10px -2px color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 11px;
+  box-shadow: 0 4px 10px -2px rgba(59, 109, 240, 0.45);
 }
 
 .site-brand h1 {

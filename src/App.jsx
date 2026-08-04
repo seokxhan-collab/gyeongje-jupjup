@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
-import { TrendingUp, Bookmark } from 'lucide-react'
+import { Bookmark } from 'lucide-react'
+import Logo from './components/Logo.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import SearchBar from './components/SearchBar.jsx'
 import SiteNav from './components/SiteNav.jsx'
@@ -26,9 +27,7 @@ export default function App() {
       <header className="site-topbar">
         <div className="site-container site-topbar-inner">
           <div className="site-brand">
-            <span className="site-brand-mark">
-              <TrendingUp size={20} strokeWidth={2.5} />
-            </span>
+            <Logo size={38} />
             <div>
               <h1>경제줍줍</h1>
               <p>국내외 경제뉴스를 한 곳에 모아봅니다</p>
