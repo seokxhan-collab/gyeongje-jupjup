@@ -21,8 +21,8 @@ export default function SubscribePage() {
   const [emailError, setEmailError] = useState(null)
 
   useDocumentMeta({
-    title: '오늘의 브리핑 구독',
-    description: '경제줍줍의 오늘의 경제 브리핑을 텔레그램으로 매일 아침 받아보세요.',
+    title: '오늘의 브리핑 구독 (무료)',
+    description: '경제줍줍의 오늘의 경제 브리핑을 텔레그램·이메일로 매일 아침 무료로 받아보세요. 가입비, 이용료 없이 완전 무료입니다.',
   })
 
   async function startTelegramSubscribe() {
@@ -57,8 +57,9 @@ export default function SubscribePage() {
         <div className="page-header-title">
           <Send size={18} />
           <h2 className="page-title">오늘의 브리핑 구독</h2>
+          <span className="subscribe-free-badge">100% 무료</span>
         </div>
-        <span className="page-date">매일 아침 AI가 만든 경제 브리핑을 원하는 채널로 받아보세요</span>
+        <span className="page-date">매일 아침 AI가 만든 경제 브리핑을 원하는 채널로 무료로 받아보세요. 가입비·이용료 없이 언제든 해지 가능해요.</span>
       </div>
 
       <div className="subscribe-channels">

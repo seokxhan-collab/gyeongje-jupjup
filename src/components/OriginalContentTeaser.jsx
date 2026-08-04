@@ -39,8 +39,8 @@ export default function OriginalContentTeaser() {
           <Send size={16} />
         </span>
         <span className="teaser-body">
-          <span className="teaser-title">오늘의 브리핑 구독</span>
-          <span className="teaser-desc">텔레그램으로 매일 아침 브리핑 받아보기</span>
+          <span className="teaser-title">오늘의 브리핑 구독 (무료)</span>
+          <span className="teaser-desc">텔레그램·이메일로 매일 아침 브리핑 무료로 받아보기</span>
         </span>
         <ChevronRight size={16} className="teaser-arrow" />
       </Link>
