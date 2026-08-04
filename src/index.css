@@ -231,15 +231,9 @@ body {
 
 .site-nav-list {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 2px;
-  overflow-x: auto;
-  overflow-y: visible;
-  scrollbar-width: none;
-}
-
-.site-nav-list::-webkit-scrollbar {
-  display: none;
 }
 
 .site-nav-item {
