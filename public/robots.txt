@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gyeongje-jupjup.vercel.app/sitemap.xml
+Sitemap: https://www.gyeongjejupjup.fyi/sitemap.xml

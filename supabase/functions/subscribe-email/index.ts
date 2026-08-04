@@ -4,7 +4,7 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2'
 
-const SITE_URL = 'https://gyeongje-jupjup.vercel.app'
+const SITE_URL = 'https://www.gyeongjejupjup.fyi'
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function corsHeaders() {
@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: '경제줍줍 <briefing@gyeongjejupjup.kro.kr>',
+      from: '경제줍줍 <briefing@gyeongjejupjup.fyi>',
       to: email,
       subject: '[경제줍줍] 이메일 구독을 완료해주세요',
       html: `<div style="font-family:system-ui,sans-serif;max-width:480px;margin:0 auto">

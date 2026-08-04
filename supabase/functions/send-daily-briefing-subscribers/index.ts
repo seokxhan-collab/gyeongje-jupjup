@@ -105,7 +105,7 @@ Deno.serve(async () => {
           method: 'POST',
           headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            from: '경제줍줍 <briefing@gyeongjejupjup.kro.kr>',
+            from: '경제줍줍 <briefing@gyeongjejupjup.fyi>',
             to: sub.destination,
             subject: `[경제줍줍] 오늘의 경제 브리핑 (${briefing.briefing_date})`,
             html,

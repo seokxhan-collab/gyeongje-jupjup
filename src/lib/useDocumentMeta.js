@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 
 const SITE_NAME = '경제줍줍'
-const SITE_URL = 'https://gyeongje-jupjup.vercel.app'
+const SITE_URL = 'https://www.gyeongjejupjup.fyi'
 
 function setMeta(selector, attr, value) {
   const el = document.querySelector(selector)
