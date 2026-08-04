@@ -1132,6 +1132,188 @@ body {
   cursor: pointer;
 }
 
+.quiz-result-rank {
+  margin: 0 0 16px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+
+.quiz-result-rank strong {
+  color: var(--accent);
+}
+
+.quiz-result-note {
+  margin: 0 0 16px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.quiz-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  padding: 40px 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.quiz-intro-icon {
+  color: var(--accent);
+}
+
+.quiz-intro-lead {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.quiz-nickname-input {
+  width: 100%;
+  max-width: 340px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  text-align: center;
+}
+
+.quiz-nickname-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.quiz-start-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 32px;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.quiz-start-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.quiz-play {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-progress-bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border);
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.quiz-progress-label {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.quiz-play .quiz-start-btn {
+  align-self: center;
+}
+
+.leaderboard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.leaderboard-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  color: var(--accent);
+}
+
+.leaderboard-header h4 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.leaderboard-empty {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.leaderboard-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.leaderboard-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.leaderboard-row.me {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  font-weight: 700;
+}
+
+.leaderboard-rank {
+  flex-shrink: 0;
+  width: 20px;
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.leaderboard-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.leaderboard-score {
+  flex-shrink: 0;
+  color: var(--text-muted);
+}
+
+.leaderboard-row.me .leaderboard-score {
+  color: var(--accent);
+}
+
 .legal-article h3 {
   margin: 28px 0 10px;
   font-size: 1.02rem;
