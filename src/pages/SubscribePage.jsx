@@ -5,7 +5,7 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 const CHANNELS = [
   { id: 'telegram', label: '텔레그램', icon: Send, available: true },
-  { id: 'email', label: '이메일', icon: Mail, available: false },
+  { id: 'email', label: '이메일', icon: Mail, available: true },
   { id: 'kakao', label: '카카오톡 알림톡', icon: MessageCircle, available: false },
 ]
 
@@ -14,6 +14,11 @@ export default function SubscribePage() {
   const [loading, setLoading] = useState(false)
   const [deepLink, setDeepLink] = useState(null)
   const [error, setError] = useState(null)
+
+  const [email, setEmail] = useState('')
+  const [emailLoading, setEmailLoading] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
+  const [emailError, setEmailError] = useState(null)
 
   useDocumentMeta({
     title: '오늘의 브리핑 구독',
@@ -31,6 +36,19 @@ export default function SubscribePage() {
     }
     setDeepLink(data.deepLink)
     window.open(data.deepLink, '_blank', 'noopener,noreferrer')
+  }
+
+  async function submitEmailSubscribe(e) {
+    e.preventDefault()
+    setEmailLoading(true)
+    setEmailError(null)
+    const { data, error: fnError } = await supabase.functions.invoke('subscribe-email', { body: { email } })
+    setEmailLoading(false)
+    if (fnError || data?.error) {
+      setEmailError(fnError?.message ?? data?.error ?? '구독 신청 중 오류가 발생했습니다.')
+      return
+    }
+    setEmailSent(true)
   }
 
   return (
@@ -90,11 +108,34 @@ export default function SubscribePage() {
 
       {channel === 'email' && (
         <div className="subscribe-panel">
-          <h3 className="subscribe-panel-title">이메일 구독은 준비 중입니다</h3>
-          <p className="subscribe-panel-desc">
-            이메일 발송은 스팸 방지를 위해 도메인 인증 절차가 필요해 아직 준비 중입니다. 곧 지원할
-            예정이니 조금만 기다려주세요! 지금은 텔레그램으로 먼저 받아보실 수 있어요.
-          </p>
+          <h3 className="subscribe-panel-title">이메일로 받는 방법</h3>
+          <ol className="subscribe-steps">
+            <li>아래 입력칸에 브리핑을 받고 싶은 이메일 주소를 입력하고 버튼을 눌러주세요.</li>
+            <li>입력한 이메일로 인증 메일이 도착합니다. 메일 안의 <strong>"구독 완료하기"</strong> 버튼을 눌러야 구독이 완료됩니다.</li>
+            <li>이후 매일 아침 이 주소로 오늘의 브리핑이 도착합니다. 메일 하단의 "구독 해지" 링크로 언제든 그만 받을 수 있어요.</li>
+          </ol>
+
+          {!emailSent ? (
+            <form className="subscribe-email-form" onSubmit={submitEmailSubscribe}>
+              <input
+                type="email"
+                required
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="subscribe-email-input"
+              />
+              <button type="submit" className="subscribe-cta-btn" disabled={emailLoading}>
+                {emailLoading ? '전송하는 중...' : '인증 메일 받기'}
+              </button>
+            </form>
+          ) : (
+            <div className="subscribe-success">
+              <Check size={18} />
+              <span>인증 메일을 보냈어요. 메일함(스팸함도 확인!)에서 "구독 완료하기"를 눌러주세요.</span>
+            </div>
+          )}
+          {emailError && <p className="status-text status-error">{emailError}</p>}
         </div>
       )}
 
