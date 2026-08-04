@@ -18,6 +18,7 @@ export default function Footer() {
             <Link to="/">홈</Link>
             <Link to="/quiz">오늘의 퀴즈</Link>
             <Link to="/weekly">주간 시황</Link>
+            <Link to="/subscribe">브리핑 구독</Link>
           </nav>
         </div>
 

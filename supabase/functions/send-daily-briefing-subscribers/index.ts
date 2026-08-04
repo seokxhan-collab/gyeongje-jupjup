@@ -1,0 +1,83 @@
+// send-daily-briefing-subscribers
+// 그날의 데일리 브리핑을 활성 텔레그램 구독자 전원에게 전송한다.
+// generate-briefing(07:00 KST) 직후에 실행되도록 크론에 등록한다.
+
+import { createClient } from 'jsr:@supabase/supabase-js@2'
+
+function todayKst(): string {
+  return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' })
+}
+
+function formatMessage(briefingDate: string, items: { title: string; summary: string; source: string; link: string }[]) {
+  const lines = items.map(
+    (item, i) => `${i + 1}. ${item.title}\n${item.summary}\n(${item.source}) ${item.link}`,
+  )
+  return `📌 오늘의 경제 브리핑 (${briefingDate})\n\n${lines.join('\n\n')}\n\n구독을 그만 받고 싶으면 /stop 을 입력해주세요.`
+}
+
+Deno.serve(async () => {
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+  )
+
+  const today = todayKst()
+  const { data: briefing, error: briefingError } = await supabase
+    .from('briefings')
+    .select('briefing_date, items')
+    .eq('briefing_date', today)
+    .maybeSingle()
+
+  if (briefingError) {
+    return new Response(JSON.stringify({ error: briefingError.message }), { status: 500 })
+  }
+  if (!briefing) {
+    return new Response(
+      JSON.stringify({ skipped: true, reason: `${today}자 브리핑이 아직 없습니다.` }),
+      { headers: { 'Content-Type': 'application/json' } },
+    )
+  }
+
+  const { data: subscribers, error: subError } = await supabase
+    .from('subscribers')
+    .select('id, destination')
+    .eq('channel', 'telegram')
+    .eq('status', 'active')
+
+  if (subError) {
+    return new Response(JSON.stringify({ error: subError.message }), { status: 500 })
+  }
+  if (!subscribers || subscribers.length === 0) {
+    return new Response(JSON.stringify({ sent: 0, reason: '활성 구독자가 없습니다.' }), {
+      headers: { 'Content-Type': 'application/json' },
+    })
+  }
+
+  const text = formatMessage(briefing.briefing_date, briefing.items ?? [])
+  const botToken = Deno.env.get('TELEGRAM_BOT_TOKEN')!
+
+  const results = await Promise.allSettled(
+    subscribers.map(async (sub) => {
+      const res = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: sub.destination, text, disable_web_page_preview: true }),
+      })
+      const json = await res.json()
+      // 403: 사용자가 봇을 차단함 -> 더 이상 보내지 않도록 구독 해지 처리
+      if (!res.ok && res.status === 403) {
+        await supabase.from('subscribers').update({ status: 'unsubscribed' }).eq('id', sub.id)
+      }
+      if (!res.ok || !json.ok) throw new Error(json.description ?? 'telegram send failed')
+      return sub.id
+    }),
+  )
+
+  const sent = results.filter((r) => r.status === 'fulfilled').length
+  const failed = results.length - sent
+
+  return new Response(
+    JSON.stringify({ briefing_date: briefing.briefing_date, sent, failed, total: subscribers.length }),
+    { headers: { 'Content-Type': 'application/json' } },
+  )
+})

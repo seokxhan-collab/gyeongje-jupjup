@@ -16,6 +16,7 @@ import AboutPage from './pages/AboutPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
 import GlossaryPage from './pages/GlossaryPage.jsx'
+import SubscribePage from './pages/SubscribePage.jsx'
 import { useBookmarks } from './lib/useBookmarks.js'
 
 export default function App() {
@@ -58,6 +59,7 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/glossary" element={<GlossaryPage />} />
+        <Route path="/subscribe" element={<SubscribePage />} />
       </Routes>
 
       <Footer />

@@ -424,6 +424,10 @@ body {
   background: var(--cat-industry);
 }
 
+.teaser-icon-subscribe {
+  background: var(--cat-policy);
+}
+
 .teaser-body {
   flex: 1;
   min-width: 0;
@@ -1304,6 +1308,123 @@ body {
 }
 
 .leaderboard-row.me .leaderboard-score {
+  color: var(--accent);
+}
+
+.subscribe-channels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.subscribe-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.12s, color 0.12s;
+}
+
+.subscribe-channel-btn:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.subscribe-channel-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.subscribe-channel-badge {
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: var(--border);
+  color: var(--text-muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.subscribe-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.subscribe-panel-title {
+  margin: 0 0 14px;
+  font-size: 1.02rem;
+}
+
+.subscribe-panel-desc {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.subscribe-steps {
+  margin: 0 0 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.subscribe-steps code {
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--bg);
+  font-size: 0.85rem;
+}
+
+.subscribe-cta-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.subscribe-cta-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.subscribe-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--success) 12%, transparent);
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.subscribe-success svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--success);
+}
+
+.subscribe-success a {
   color: var(--accent);
 }
 
