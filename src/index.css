@@ -121,19 +121,35 @@ body {
 
 .site-brand {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-brand-mark {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #7c3aed));
+  color: #fff;
+  box-shadow: 0 4px 10px -2px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .site-brand h1 {
   margin: 0;
   font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .site-brand p {
-  margin: 2px 0 0;
+  margin: 1px 0 0;
   color: var(--text-muted);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
 }
 
 .site-topbar-search {
@@ -146,14 +162,21 @@ body {
   margin-bottom: 0;
 }
 
-/* 네이버뉴스 스타일: 로고/검색 줄은 스크롤과 함께 흐르고, 메뉴바만 배경색을 채운 채 상단에 고정된다 */
+/* 로고/검색 줄은 스크롤과 함께 흐르고, 메뉴바만 배경색을 채운 채 상단에 고정된다 */
 .site-menubar {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+}
+
+.site-menubar .site-container {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
 }
 
 .theme-toggle {
@@ -177,7 +200,8 @@ body {
 
 .site-nav-list {
   display: flex;
-  gap: 4px;
+  align-items: center;
+  gap: 2px;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
@@ -194,21 +218,21 @@ body {
 
 .site-nav-dropdown {
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: calc(100% + 6px);
+  left: 6px;
   z-index: 20;
   display: flex;
   flex-direction: column;
-  min-width: 140px;
+  min-width: 152px;
   padding: 6px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-4px);
-  transition: opacity 0.14s ease, transform 0.14s ease, visibility 0.14s;
+  transform: translateY(-6px);
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
 }
 
 .site-nav-item:hover .site-nav-dropdown,
@@ -219,46 +243,63 @@ body {
 }
 
 .site-nav-dropdown-item {
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 9px 12px;
+  border-radius: 8px;
   color: var(--text-muted);
   font-size: 0.88rem;
   font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
+  transition: background 0.12s, color 0.12s;
 }
 
 .site-nav-dropdown-item:hover {
-  background: var(--bg);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
   color: var(--text);
 }
 
 .site-nav-dropdown-item.active {
   color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
   font-weight: 700;
 }
 
 .category-tab {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   border: none;
   background: transparent;
   color: var(--text-muted);
   font-size: 0.92rem;
   font-weight: 600;
-  padding: 10px 14px;
+  padding: 9px 16px;
+  margin: 4px 0;
+  border-radius: 999px;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
   white-space: nowrap;
-  transition: color 0.12s, border-color 0.12s;
+  transition: color 0.14s ease, background 0.14s ease;
 }
 
 .category-tab:hover {
   color: var(--text);
+  background: color-mix(in srgb, var(--text) 6%, transparent);
 }
 
 .category-tab.active {
   color: var(--accent);
-  border-bottom-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
+}
+
+.category-tab-chevron {
+  opacity: 0.6;
+  transition: transform 0.16s ease;
+}
+
+.site-nav-item:hover .category-tab-chevron,
+.site-nav-item:focus-within .category-tab-chevron {
+  transform: rotate(180deg);
 }
 
 @media (max-width: 640px) {
@@ -302,6 +343,73 @@ body {
     flex-direction: column;
     gap: 20px;
   }
+}
+
+.teaser-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 10px;
+}
+
+.teaser-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--text);
+  transition: background 0.14s ease;
+}
+
+.teaser-item:hover {
+  background: var(--bg);
+}
+
+.teaser-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.teaser-icon-quiz {
+  background: var(--cat-crypto);
+}
+
+.teaser-icon-weekly {
+  background: var(--cat-markets);
+}
+
+.teaser-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.teaser-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.teaser-desc {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.teaser-arrow {
+  flex-shrink: 0;
+  color: var(--text-muted);
 }
 
 .briefing {
@@ -369,25 +477,54 @@ body {
   color: var(--text-muted);
 }
 
-.filter-nav {
+.filter-bar {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
 }
 
-.filter-heading {
-  margin: 0 0 8px;
-  font-size: 0.75rem;
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-label {
+  flex-shrink: 0;
+  font-size: 0.78rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: var(--text-muted);
+}
+
+.filter-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--border);
 }
 
 .filter-list {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+}
+
+@media (max-width: 640px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filter-divider {
+    display: none;
+  }
 }
 
 .chip {
@@ -623,36 +760,69 @@ body {
 .site-footer {
   background: var(--surface);
   border-top: 1px solid var(--border);
+  margin-top: 40px;
 }
 
 .site-footer-inner {
-  padding: 28px 20px 24px;
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  padding: 40px 20px 32px;
+}
+
+.site-footer-col {
+  min-width: 0;
 }
 
 .site-footer-brand {
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .site-footer-tagline {
-  margin: 4px 0 0;
+  margin: 6px 0 0;
   color: var(--text-muted);
   font-size: 0.85rem;
 }
 
 .site-footer-disclaimer {
-  margin: 14px auto 0;
-  max-width: 560px;
+  margin: 14px 0 0;
+  max-width: 420px;
   color: var(--text-muted);
   font-size: 0.78rem;
   line-height: 1.6;
 }
 
-.site-footer-contact {
-  margin: 10px 0 0;
+.site-footer-heading {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
-  font-size: 0.8rem;
+}
+
+.site-footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.site-footer-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+
+.site-footer-links a:hover {
+  color: var(--accent);
+}
+
+.site-footer-contact {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.8;
 }
 
 .site-footer-contact a {
@@ -664,10 +834,32 @@ body {
   text-decoration: underline;
 }
 
+.site-footer-bottom {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
 .site-footer-copyright {
-  margin: 16px 0 0;
+  margin: 0;
   color: var(--text-muted);
   font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .site-footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer-about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
 
 .site-page {
@@ -808,6 +1000,26 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+.legal-article h3 {
+  margin: 28px 0 10px;
+  font-size: 1.02rem;
+}
+
+.legal-article h3:first-child {
+  margin-top: 0;
+}
+
+.legal-article p {
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.75;
+}
+
+.legal-article a {
+  color: var(--accent);
 }
 
 /* 주간 시황 총평 */

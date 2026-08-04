@@ -1,0 +1,38 @@
+export default function AboutPage() {
+  return (
+    <div className="site-container site-page">
+      <div className="page-header">
+        <h2 className="page-title">사이트 소개</h2>
+      </div>
+
+      <article className="legal-article">
+        <p>
+          경제줍줍은 국내외 주요 언론사의 경제 뉴스를 한 곳에 모아 보여주는 뉴스 큐레이션 서비스입니다.
+          매일경제, 연합뉴스, 이투데이 등 국내 매체와 CNBC, WSJ, Financial Times 등 해외 매체의 경제
+          기사를 수집해 분야별·지역별로 정리해 제공합니다.
+        </p>
+
+        <h3>자체 제작 콘텐츠</h3>
+        <p>
+          뉴스 큐레이션 외에도 AI가 그날그날의 경제 뉴스를 참고해 직접 구성하는{' '}
+          <strong>오늘의 경제 퀴즈</strong>와, 한 주간의 경제 흐름을 정리하는{' '}
+          <strong>주간 시황 총평</strong>을 자체 콘텐츠로 제공합니다. 두 콘텐츠 모두 원문을 그대로
+          옮기지 않고 AI가 새로 구성한 글입니다.
+        </p>
+
+        <h3>운영 및 문의</h3>
+        <p>
+          경제줍줍은 개인이 운영하는 비상업 프로젝트로 시작해 현재는 카카오 애드핏 광고를 통해
+          서비스 운영비를 충당하고 있습니다. 서비스 관련 문의나 광고 제휴는{' '}
+          <a href="mailto:honeyhavenlab0@gmail.com">honeyhavenlab0@gmail.com</a>으로 연락해 주시기
+          바랍니다.
+        </p>
+
+        <p className="page-disclaimer">
+          사이트가 제공하는 모든 브리핑·퀴즈·총평은 AI가 재구성한 콘텐츠이며, 투자 판단의 참고용으로만
+          활용하시기 바랍니다. 원문 기사에 대한 저작권은 각 언론사에 있습니다.
+        </p>
+      </article>
+    </div>
+  )
+}

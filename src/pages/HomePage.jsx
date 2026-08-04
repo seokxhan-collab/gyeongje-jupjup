@@ -4,6 +4,7 @@ import DailyBriefing from '../components/DailyBriefing.jsx'
 import NewsFeed from '../components/NewsFeed.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import AdSlot from '../components/AdSlot.jsx'
+import OriginalContentTeaser from '../components/OriginalContentTeaser.jsx'
 
 export default function HomePage({ search }) {
   const [searchParams] = useSearchParams()
@@ -32,18 +33,19 @@ export default function HomePage({ search }) {
 
         <div className="site-body">
           <main className="site-main">
-            <NewsFeed country={country} category={category} activeSources={activeSources} search={search} />
-          </main>
-
-          <aside className="site-sidebar">
-            <DailyBriefing />
-            <AdSlot placement="sidebar" />
             <FilterBar
               country={country}
               onCountryChange={handleCountryChange}
               activeSources={activeSources}
               onToggleSource={toggleSource}
             />
+            <NewsFeed country={country} category={category} activeSources={activeSources} search={search} />
+          </main>
+
+          <aside className="site-sidebar">
+            <OriginalContentTeaser />
+            <DailyBriefing />
+            <AdSlot placement="sidebar" />
           </aside>
         </div>
       </div>

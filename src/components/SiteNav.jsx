@@ -1,4 +1,5 @@
 import { NavLink, Link, useSearchParams } from 'react-router-dom'
+import { ChevronDown } from 'lucide-react'
 import { CATEGORIES } from '../lib/categories.js'
 
 const CATEGORY_OPTIONS = [{ value: 'all', label: '전체' }, ...CATEGORIES]
@@ -25,6 +26,7 @@ export default function SiteNav() {
                 className={({ isActive }) => `category-tab ${isActive ? 'active' : ''}`}
               >
                 {link.label}
+                {link.children && <ChevronDown size={14} className="category-tab-chevron" />}
               </NavLink>
               {link.children && (
                 <div className="site-nav-dropdown">

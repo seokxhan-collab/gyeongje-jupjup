@@ -9,10 +9,10 @@ export default function FilterBar({
   const visibleSources = SOURCES.filter((s) => country === 'all' || s.country === country)
 
   return (
-    <nav className="filter-nav">
-      <div className="filter-section">
-        <h4 className="filter-heading">지역</h4>
-        <div className="filter-list filter-list-row">
+    <nav className="filter-bar" aria-label="뉴스 필터">
+      <div className="filter-group">
+        <span className="filter-label">지역</span>
+        <div className="filter-list">
           {[
             { value: 'all', label: '전체' },
             { value: 'domestic', label: '국내' },
@@ -29,9 +29,11 @@ export default function FilterBar({
         </div>
       </div>
 
-      <div className="filter-section">
-        <h4 className="filter-heading">언론사</h4>
-        <div className="filter-list filter-list-row">
+      <div className="filter-divider" aria-hidden="true" />
+
+      <div className="filter-group">
+        <span className="filter-label">언론사</span>
+        <div className="filter-list">
           {visibleSources.map((s) => (
             <button
               key={s.source}
