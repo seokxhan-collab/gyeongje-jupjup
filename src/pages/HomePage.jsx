@@ -1,13 +1,14 @@
 import { useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import DailyBriefing from '../components/DailyBriefing.jsx'
 import NewsFeed from '../components/NewsFeed.jsx'
 import FilterBar from '../components/FilterBar.jsx'
-import CategoryNav from '../components/CategoryNav.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 
 export default function HomePage({ search }) {
+  const [searchParams] = useSearchParams()
+  const category = searchParams.get('category') ?? 'all'
   const [country, setCountry] = useState('all')
-  const [category, setCategory] = useState('all')
   const [activeSources, setActiveSources] = useState(new Set())
 
   function handleCountryChange(next) {
@@ -26,12 +27,6 @@ export default function HomePage({ search }) {
 
   return (
     <>
-      <nav className="site-subnav">
-        <div className="site-container">
-          <CategoryNav category={category} onCategoryChange={setCategory} />
-        </div>
-      </nav>
-
       <div className="site-container site-main-container">
         <AdSlot placement="top-banner" />
 
