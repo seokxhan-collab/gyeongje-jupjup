@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient.js'
 import NewsCard from './NewsCard.jsx'
+import AdSlot from './AdSlot.jsx'
 
 const PAGE_SIZE = 60
+const AD_INTERVAL = 6
 
 function escapeIlikeTerm(term) {
   return term.trim().replace(/[%_,()]/g, ' ').replace(/\s+/g, ' ').trim()
@@ -54,8 +56,11 @@ export default function NewsFeed({ country, category, activeSources, search }) {
       )}
 
       <div className="news-grid">
-        {news.map((item) => (
-          <NewsCard key={item.id} item={item} />
+        {news.map((item, i) => (
+          <Fragment key={item.id}>
+            <NewsCard item={item} />
+            {(i + 1) % AD_INTERVAL === 0 && <AdSlot placement="in-feed" />}
+          </Fragment>
         ))}
       </div>
     </section>

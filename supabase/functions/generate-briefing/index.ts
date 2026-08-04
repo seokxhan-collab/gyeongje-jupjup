@@ -70,6 +70,9 @@ Deno.serve(async () => {
     .from('news')
     .select('source, title, summary, link, published_at')
     .gte('published_at', since)
+    // 연합뉴스 RSS는 "AI 학습 및 활용 금지"를 명시하고 있어 AI 재구성 브리핑의 소스 후보에서 제외한다.
+    // (일반 뉴스 목록에는 원문 링크만 노출하므로 계속 포함됨)
+    .neq('source', '연합뉴스')
     .order('published_at', { ascending: false })
     .limit(CANDIDATE_LIMIT)
 

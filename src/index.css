@@ -88,57 +88,64 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.app {
+.site-container {
   max-width: 1320px;
   margin: 0 auto;
-  padding: 32px 20px 72px;
+  padding: 0 20px;
 }
 
-.app-shell {
+.site-main-container {
+  padding-top: 24px;
+  padding-bottom: 72px;
+}
+
+.site-topbar {
+  background: var(--bg);
+}
+
+.site-topbar-inner {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
+  align-items: center;
+  gap: 16px;
+  padding-top: 16px;
+  padding-bottom: 14px;
 }
 
-@media (min-width: 960px) {
-  .app-shell {
-    display: grid;
-    grid-template-columns: 200px minmax(0, 1fr) 320px;
-    grid-template-areas: 'filters main briefing';
-    align-items: start;
-    gap: 28px;
-  }
-
-  .sidebar-filters {
-    grid-area: filters;
-    position: sticky;
-    top: 24px;
-  }
-
-  .main-content {
-    grid-area: main;
-    min-width: 0;
-  }
-
-  .sidebar-briefing {
-    grid-area: briefing;
-    position: sticky;
-    top: 24px;
-  }
+.site-brand {
+  flex-shrink: 0;
 }
 
-.app-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.app-header h1 {
+.site-brand h1 {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1.4rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+}
+
+.site-brand p {
+  margin: 2px 0 0;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.site-topbar-search {
+  flex: 1;
+  max-width: 420px;
+  margin-left: auto;
+}
+
+.site-topbar-search .search-bar {
+  margin-bottom: 0;
+}
+
+/* 네이버뉴스 스타일: 로고/검색 줄은 스크롤과 함께 흐르고, 메뉴바만 배경색을 채운 채 상단에 고정된다 */
+.site-menubar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .theme-toggle {
@@ -160,10 +167,81 @@ body {
   color: var(--accent);
 }
 
-.app-header p {
-  margin: 6px 0 28px;
+.site-nav-list {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.site-nav-list::-webkit-scrollbar {
+  display: none;
+}
+
+.category-tab {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.12s, border-color 0.12s;
+}
+
+.category-tab:hover {
+  color: var(--text);
+}
+
+.category-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .site-topbar-inner {
+    flex-wrap: wrap;
+  }
+
+  .site-topbar-search {
+    order: 3;
+    max-width: none;
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}
+
+.site-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+@media (min-width: 960px) {
+  .site-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-areas: 'main sidebar';
+    align-items: start;
+    gap: 28px;
+  }
+
+  .site-main {
+    grid-area: main;
+    min-width: 0;
+  }
+
+  .site-sidebar {
+    grid-area: sidebar;
+    position: sticky;
+    top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 
 .briefing {
@@ -174,8 +252,8 @@ body {
 }
 
 @media (min-width: 960px) {
-  .sidebar-briefing .briefing {
-    max-height: calc(100vh - 48px);
+  .site-sidebar .briefing {
+    max-height: calc(100vh - 84px);
     overflow-y: auto;
   }
 }
@@ -252,66 +330,25 @@ body {
   gap: 6px;
 }
 
-.chip,
-.nav-item {
+.chip {
   border: 1px solid var(--border);
   background: var(--surface);
-  color: var(--text);
+  color: var(--text-muted);
   border-radius: 999px;
-  padding: 7px 14px;
-  font-size: 0.88rem;
+  padding: 5px 12px;
+  font-size: 0.8rem;
   cursor: pointer;
   transition: background 0.12s, color 0.12s, border-color 0.12s;
 }
 
-.chip:hover,
-.nav-item:hover {
+.chip:hover {
   border-color: var(--accent);
 }
 
-.chip.active,
-.nav-item.active {
+.chip.active {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
-}
-
-.nav-item {
-  font-weight: 600;
-}
-
-.filter-list-row .chip {
-  font-size: 0.8rem;
-  padding: 5px 12px;
-  color: var(--text-muted);
-}
-
-.filter-list-row .chip.active {
-  color: #fff;
-}
-
-@media (min-width: 960px) {
-  .filter-list:not(.filter-list-row) {
-    flex-direction: column;
-  }
-
-  .filter-list:not(.filter-list-row) .nav-item {
-    width: 100%;
-    text-align: left;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 10px;
-    background: transparent;
-  }
-
-  .filter-list:not(.filter-list-row) .nav-item:hover {
-    background: var(--surface);
-  }
-
-  .filter-list:not(.filter-list-row) .nav-item.active {
-    background: var(--accent);
-    color: #fff;
-  }
 }
 
 .search-bar {
@@ -488,4 +525,72 @@ body {
 
 .status-error {
   color: #dc2626;
+}
+
+.ad-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.ad-slot-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.ad-slot--top-banner {
+  margin: 0 0 24px;
+  min-height: 100px;
+}
+
+.ad-slot--sidebar {
+  min-height: 250px;
+}
+
+.ad-slot--in-feed {
+  min-height: 250px;
+  align-self: start;
+}
+
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+.site-footer-inner {
+  padding: 28px 20px 24px;
+  text-align: center;
+}
+
+.site-footer-brand {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.site-footer-tagline {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.site-footer-disclaimer {
+  margin: 14px auto 0;
+  max-width: 560px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.site-footer-copyright {
+  margin: 16px 0 0;
+  color: var(--text-muted);
+  font-size: 0.75rem;
 }
