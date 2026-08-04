@@ -1,4 +1,11 @@
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+
 export default function AboutPage() {
+  useDocumentMeta({
+    title: '사이트 소개',
+    description: '경제줍줍은 국내외 경제뉴스를 모아 보여주고, AI가 만드는 퀴즈·주간 시황·용어사전을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
+  })
+
   return (
     <div className="site-container site-page">
       <div className="page-header">

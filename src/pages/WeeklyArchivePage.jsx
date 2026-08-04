@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Newspaper } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 export default function WeeklyArchivePage() {
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
+
+  useDocumentMeta({
+    title: '지난 시황 모아보기',
+    description: '경제줍줍이 매주 발행해온 주간 시황 총평을 주차별로 다시 볼 수 있습니다.',
+  })
 
   useEffect(() => {
     let cancelled = false

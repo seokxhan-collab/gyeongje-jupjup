@@ -1,9 +1,13 @@
 import { Bookmark } from 'lucide-react'
 import { useBookmarks } from '../lib/useBookmarks.js'
 import NewsCard from '../components/NewsCard.jsx'
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 export default function SavedPage() {
   const { bookmarks } = useBookmarks()
+
+  // 브라우저 로컬 저장소 기반이라 크롤러에게는 항상 빈 페이지로 보이므로 색인에서 제외한다.
+  useDocumentMeta({ title: '저장한 기사', noindex: true })
 
   return (
     <div className="site-container site-main-container">

@@ -44,6 +44,23 @@ function todayKst(): string {
   return new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' })
 }
 
+// Claude가 생성하는 문항은 정답이 특정 번호(주로 2번)에 몰리는 경향이 있어,
+// 문항마다 보기 순서를 무작위로 섞고 correct_index를 그에 맞게 다시 계산한다.
+function shuffleChoices(
+  questions: { question: string; choices: string[]; correct_index: number; explanation: string }[],
+) {
+  return questions.map((q) => {
+    const order = q.choices.map((_, i) => i)
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[order[i], order[j]] = [order[j], order[i]]
+    }
+    const choices = order.map((i) => q.choices[i])
+    const correct_index = order.indexOf(q.correct_index)
+    return { ...q, choices, correct_index }
+  })
+}
+
 function buildPrompt(candidates: { idx: number; source: string; title: string; summary: string }[]) {
   const list = candidates
     .map((c) => `[${c.idx}] (${c.source}) ${c.title}\n요약: ${c.summary || '(요약 없음)'}`)
@@ -125,7 +142,7 @@ Deno.serve(async () => {
     })
   }
 
-  const questions = toolUse.input.questions
+  const questions = shuffleChoices(toolUse.input.questions)
 
   const quizDate = todayKst()
   const { error: upsertError } = await supabase

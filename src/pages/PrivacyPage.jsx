@@ -1,4 +1,11 @@
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+
 export default function PrivacyPage() {
+  useDocumentMeta({
+    title: '개인정보처리방침',
+    description: '경제줍줍의 개인정보 수집·이용·광고 쿠키 관련 처리방침입니다.',
+  })
+
   return (
     <div className="site-container site-page">
       <div className="page-header">

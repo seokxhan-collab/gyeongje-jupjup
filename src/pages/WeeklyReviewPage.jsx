@@ -2,12 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Newspaper } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import AdSlot from '../components/AdSlot.jsx'
 
 export default function WeeklyReviewPage() {
   const { date } = useParams()
   const [review, setReview] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  useDocumentMeta({
+    title: review ? review.title : '주간 시황 총평',
+    description: 'AI가 지난 한 주의 경제 브리핑을 주제별로 다시 정리한 칼럼형 주간 시황 총평입니다.',
+  })
 
   useEffect(() => {
     let cancelled = false

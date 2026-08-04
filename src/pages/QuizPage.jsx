@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Check, Sparkles, Trophy, X } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { getClientId, getSavedNickname, saveNickname } from '../lib/clientId.js'
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import AdSlot from '../components/AdSlot.jsx'
 import QuizLeaderboard from '../components/QuizLeaderboard.jsx'
 
@@ -30,6 +31,11 @@ export default function QuizPage() {
   const [result, setResult] = useState(null)
   const [copied, setCopied] = useState(false)
   const [submitError, setSubmitError] = useState(null)
+
+  useDocumentMeta({
+    title: quiz ? `${quiz.quiz_date} 오늘의 경제 퀴즈` : '오늘의 경제 퀴즈',
+    description: 'AI가 매일 아침 최근 경제뉴스를 참고해 만드는 5문항 퀴즈. 풀고 나면 점수와 순위를 바로 확인할 수 있어요.',
+  })
 
   useEffect(() => {
     let cancelled = false

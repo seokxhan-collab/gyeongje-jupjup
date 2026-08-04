@@ -1,11 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BookOpen } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
+import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 export default function GlossaryPage() {
   const [terms, setTerms] = useState([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
+
+  useDocumentMeta({
+    title: '경제 용어사전',
+    description: 'AI가 매일 최근 경제뉴스 속 용어를 하나씩 골라 쉽게 풀어 설명하는 경제 용어사전입니다.',
+  })
 
   useEffect(() => {
     let cancelled = false
