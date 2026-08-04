@@ -93,7 +93,7 @@ export default function QuizPage() {
   if (!quiz || !quiz.questions?.length) {
     return (
       <div className="site-container site-page">
-        <h2 className="page-title">오늘의 경제 퀴즈</h2>
+        <h2 className="page-title">{date ? '경제 퀴즈' : '오늘의 경제 퀴즈'}</h2>
         <p className="page-empty">
           {date ? '해당 날짜의 퀴즈를 찾을 수 없습니다.' : '아직 준비된 퀴즈가 없습니다. 잠시 후 다시 확인해주세요.'}
         </p>
@@ -166,7 +166,7 @@ export default function QuizPage() {
       <div className="page-header">
         <div className="page-header-title">
           <Sparkles size={18} />
-          <h2 className="page-title">오늘의 경제 퀴즈</h2>
+          <h2 className="page-title">{date ? '경제 퀴즈' : '오늘의 경제 퀴즈'}</h2>
         </div>
         <span className="page-date">{quiz.quiz_date}</span>
       </div>
