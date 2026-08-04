@@ -8,6 +8,7 @@ const LINKS = [
   { to: '/', label: '홈', children: CATEGORY_OPTIONS },
   { to: '/quiz', label: '오늘의 퀴즈' },
   { to: '/weekly', label: '주간 시황' },
+  { to: '/glossary', label: '용어사전' },
 ]
 
 export default function SiteNav() {

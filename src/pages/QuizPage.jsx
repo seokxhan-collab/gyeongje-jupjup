@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { Check, Sparkles, X } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import AdSlot from '../components/AdSlot.jsx'
 
 export default function QuizPage() {
+  const { date } = useParams()
   const [quiz, setQuiz] = useState(null)
   const [loading, setLoading] = useState(true)
   const [answers, setAnswers] = useState({})
@@ -11,22 +13,24 @@ export default function QuizPage() {
 
   useEffect(() => {
     let cancelled = false
-    supabase
-      .from('quizzes')
-      .select('quiz_date, questions, created_at')
-      .order('quiz_date', { ascending: false })
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (!cancelled) {
-          setQuiz(data)
-          setLoading(false)
-        }
-      })
+    setLoading(true)
+    setAnswers({})
+
+    let query = supabase.from('quizzes').select('quiz_date, questions, created_at')
+    query = date
+      ? query.eq('quiz_date', date).maybeSingle()
+      : query.order('quiz_date', { ascending: false }).limit(1).maybeSingle()
+
+    query.then(({ data }) => {
+      if (!cancelled) {
+        setQuiz(data)
+        setLoading(false)
+      }
+    })
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [date])
 
   if (loading) {
     return (
@@ -40,7 +44,12 @@ export default function QuizPage() {
     return (
       <div className="site-container site-page">
         <h2 className="page-title">오늘의 경제 퀴즈</h2>
-        <p className="page-empty">아직 준비된 퀴즈가 없습니다. 잠시 후 다시 확인해주세요.</p>
+        <p className="page-empty">
+          {date ? '해당 날짜의 퀴즈를 찾을 수 없습니다.' : '아직 준비된 퀴즈가 없습니다. 잠시 후 다시 확인해주세요.'}
+        </p>
+        <Link to="/quiz/archive" className="page-archive-link">
+          지난 퀴즈 모아보기
+        </Link>
       </div>
     )
   }
@@ -72,6 +81,10 @@ export default function QuizPage() {
         </div>
         <span className="page-date">{quiz.quiz_date}</span>
       </div>
+
+      <Link to="/quiz/archive" className="page-archive-link">
+        지난 퀴즈 모아보기
+      </Link>
 
       <ol className="quiz-list">
         {questions.map((q, qi) => {

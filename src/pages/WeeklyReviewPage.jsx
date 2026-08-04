@@ -1,30 +1,33 @@
 import { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import { Newspaper } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import AdSlot from '../components/AdSlot.jsx'
 
 export default function WeeklyReviewPage() {
+  const { date } = useParams()
   const [review, setReview] = useState(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let cancelled = false
-    supabase
-      .from('weekly_reviews')
-      .select('week_start, title, paragraphs, created_at')
-      .order('week_start', { ascending: false })
-      .limit(1)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (!cancelled) {
-          setReview(data)
-          setLoading(false)
-        }
-      })
+    setLoading(true)
+
+    let query = supabase.from('weekly_reviews').select('week_start, title, paragraphs, created_at')
+    query = date
+      ? query.eq('week_start', date).maybeSingle()
+      : query.order('week_start', { ascending: false }).limit(1).maybeSingle()
+
+    query.then(({ data }) => {
+      if (!cancelled) {
+        setReview(data)
+        setLoading(false)
+      }
+    })
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [date])
 
   if (loading) {
     return (
@@ -38,7 +41,14 @@ export default function WeeklyReviewPage() {
     return (
       <div className="site-container site-page">
         <h2 className="page-title">주간 시황 총평</h2>
-        <p className="page-empty">아직 발행된 주간 총평이 없습니다. 매주 월요일 오전에 업데이트됩니다.</p>
+        <p className="page-empty">
+          {date
+            ? '해당 주차의 총평을 찾을 수 없습니다.'
+            : '아직 발행된 주간 총평이 없습니다. 매주 월요일 오전에 업데이트됩니다.'}
+        </p>
+        <Link to="/weekly/archive" className="page-archive-link">
+          지난 시황 모아보기
+        </Link>
       </div>
     )
   }
@@ -55,6 +65,10 @@ export default function WeeklyReviewPage() {
         </div>
         <span className="page-date">{review.week_start} 주</span>
       </div>
+
+      <Link to="/weekly/archive" className="page-archive-link">
+        지난 시황 모아보기
+      </Link>
 
       <article className="weekly-article">
         <h3 className="weekly-article-title">{review.title}</h3>
