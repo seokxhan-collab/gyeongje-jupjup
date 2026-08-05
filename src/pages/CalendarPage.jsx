@@ -4,6 +4,13 @@ import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import { EVENT_CATEGORIES, eventCategoryLabel } from '../lib/eventCategories.js'
 
+const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))
+
+const IMPORTANCE_OPTIONS = [
+  { value: 'high', label: '중요' },
+  { value: 'medium', label: '보통' },
+]
+
 function todayISODate() {
   const d = new Date()
   const y = d.getFullYear()
@@ -17,19 +24,24 @@ function formatDateHeader(dateStr) {
   return new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }).format(d)
 }
 
-function monthKey(dateStr) {
-  return dateStr.slice(0, 7)
+function eventMonth(dateStr) {
+  return dateStr.slice(5, 7)
 }
 
-function monthLabel(key) {
-  return `${Number(key.slice(5, 7))}월`
+function monthLabel(m) {
+  return `${Number(m)}월`
+}
+
+function toggleValue(list, value) {
+  return list.includes(value) ? list.filter((v) => v !== value) : [...list, value]
 }
 
 export default function CalendarPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
-  const [category, setCategory] = useState('all')
-  const [month, setMonth] = useState('all')
+  const [categories, setCategories] = useState([])
+  const [months, setMonths] = useState([])
+  const [importances, setImportances] = useState([])
 
   useDocumentMeta({
     title: '경제 캘린더',
@@ -53,19 +65,20 @@ export default function CalendarPage() {
     }
   }, [])
 
-  const months = useMemo(() => {
-    const keys = new Set(events.map((e) => monthKey(e.event_date)))
-    return Array.from(keys).sort()
-  }, [events])
-
   const filtered = useMemo(() => {
     const today = todayISODate()
+    const hasMonthFilter = months.length > 0
     return events.filter((e) => {
-      if (category !== 'all' && e.category !== category) return false
-      if (month === 'all') return e.event_date >= today
-      return monthKey(e.event_date) === month
+      if (categories.length > 0 && !categories.includes(e.category)) return false
+      if (importances.length > 0 && !importances.includes(e.importance)) return false
+      if (hasMonthFilter) {
+        if (!months.includes(eventMonth(e.event_date))) return false
+      } else if (e.event_date < today) {
+        return false
+      }
+      return true
     })
-  }, [events, category, month])
+  }, [events, categories, importances, months])
 
   const grouped = useMemo(() => {
     const map = new Map()
@@ -90,11 +103,14 @@ export default function CalendarPage() {
         <div className="filter-group">
           <span className="filter-label">카테고리</span>
           <div className="filter-list">
-            {[{ value: 'all', label: '전체' }, ...EVENT_CATEGORIES].map((c) => (
+            <button className={`chip ${categories.length === 0 ? 'active' : ''}`} onClick={() => setCategories([])}>
+              전체
+            </button>
+            {EVENT_CATEGORIES.map((c) => (
               <button
                 key={c.value}
-                className={`chip ${category === c.value ? 'active' : ''}`}
-                onClick={() => setCategory(c.value)}
+                className={`chip ${categories.includes(c.value) ? 'active' : ''}`}
+                onClick={() => setCategories((prev) => toggleValue(prev, c.value))}
               >
                 {c.label}
               </button>
@@ -105,13 +121,40 @@ export default function CalendarPage() {
         <div className="filter-divider" aria-hidden="true" />
 
         <div className="filter-group">
-          <span className="filter-label">월</span>
+          <span className="filter-label">중요도</span>
           <div className="filter-list">
-            <button className={`chip ${month === 'all' ? 'active' : ''}`} onClick={() => setMonth('all')}>
+            <button
+              className={`chip ${importances.length === 0 ? 'active' : ''}`}
+              onClick={() => setImportances([])}
+            >
               전체
             </button>
-            {months.map((m) => (
-              <button key={m} className={`chip ${month === m ? 'active' : ''}`} onClick={() => setMonth(m)}>
+            {IMPORTANCE_OPTIONS.map((i) => (
+              <button
+                key={i.value}
+                className={`chip ${importances.includes(i.value) ? 'active' : ''}`}
+                onClick={() => setImportances((prev) => toggleValue(prev, i.value))}
+              >
+                {i.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="filter-divider" aria-hidden="true" />
+
+        <div className="filter-group">
+          <span className="filter-label">월</span>
+          <div className="filter-list">
+            <button className={`chip ${months.length === 0 ? 'active' : ''}`} onClick={() => setMonths([])}>
+              전체
+            </button>
+            {MONTH_OPTIONS.map((m) => (
+              <button
+                key={m}
+                className={`chip ${months.includes(m) ? 'active' : ''}`}
+                onClick={() => setMonths((prev) => toggleValue(prev, m))}
+              >
                 {monthLabel(m)}
               </button>
             ))}
@@ -122,7 +165,7 @@ export default function CalendarPage() {
       {loading && <p className="page-empty">불러오는 중입니다...</p>}
       {!loading && grouped.length === 0 && (
         <p className="page-empty">
-          {month === 'all' ? '예정된 일정이 없습니다.' : '선택한 달에는 등록된 일정이 없습니다.'}
+          {months.length === 0 ? '예정된 일정이 없습니다.' : '선택한 조건에 해당하는 일정이 없습니다.'}
         </p>
       )}
 
