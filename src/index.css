@@ -351,6 +351,7 @@ body {
   border-radius: 999px;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
   transition: color 0.14s ease, background 0.14s ease;
 }
 
