@@ -343,7 +343,7 @@ body {
   gap: 3px;
   border: none;
   background: transparent;
-  color: var(--text-muted);
+  color: var(--text);
   font-size: 0.92rem;
   font-weight: 600;
   padding: 9px 16px;
@@ -357,7 +357,7 @@ body {
 
 .category-tab:hover {
   color: var(--text);
-  background: color-mix(in srgb, var(--text) 6%, transparent);
+  background: color-mix(in srgb, var(--text) 10%, transparent);
 }
 
 .category-tab.active {
