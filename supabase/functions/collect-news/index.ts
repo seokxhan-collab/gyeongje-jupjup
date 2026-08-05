@@ -102,6 +102,20 @@ async function fetchText(url: string): Promise<string> {
   }
 }
 
+// WSJ RSS는 같은 기사라도 폴링 시점마다 ?mod= 추적 파라미터 값이 달라질 때가 있어
+// (예: rss_marketsmain ↔ rss_markets_main) link 완전일치 dedup을 우회해 같은 기사가
+// 중복 저장되는 문제가 있었다. mod는 순수 추적용 파라미터라 제거해도 기사 접근에는
+// 영향이 없다.
+function normalizeLink(url: string): string {
+  try {
+    const u = new URL(url)
+    u.searchParams.delete('mod')
+    return u.toString()
+  } catch {
+    return url
+  }
+}
+
 function parseFeed(xml: string) {
   const doc = parser.parse(xml)
   const channel = doc?.rss?.channel ?? doc?.feed
@@ -117,7 +131,7 @@ function parseFeed(xml: string) {
 
     return {
       title: stripHtml(rawTitle),
-      link: rawLink.trim(),
+      link: normalizeLink(rawLink.trim()),
       summary: truncate(stripHtml(rawDescription), MAX_SUMMARY_LENGTH),
       publishedAt: publishedAt && !isNaN(publishedAt.getTime()) ? publishedAt.toISOString() : null,
     }
