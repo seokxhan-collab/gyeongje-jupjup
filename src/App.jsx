@@ -21,6 +21,7 @@ import ConfirmSubscriptionPage from './pages/ConfirmSubscriptionPage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
+import MyPage from './pages/MyPage.jsx'
 import NewsDetailPage from './pages/NewsDetailPage.jsx'
 import { useBookmarks } from './lib/useBookmarks.js'
 import { useAuth } from './lib/AuthContext.jsx'
@@ -49,7 +50,7 @@ export default function App() {
             {bookmarks.length > 0 && <span className="saved-link-badge">{bookmarks.length}</span>}
           </Link>
           {user ? (
-            <Link to="/profile" className="profile-link" aria-label="프로필">
+            <Link to="/mypage" className="profile-link" aria-label="내 활동">
               <User size={18} />
               <span className="profile-link-nickname">{profile?.nickname ?? '...'}</span>
             </Link>
@@ -81,6 +82,7 @@ export default function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/news/:id" element={<NewsDetailPage />} />
       </Routes>
 

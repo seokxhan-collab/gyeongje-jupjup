@@ -4,6 +4,7 @@ import { Check, User } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import AccountSubnav from '../components/AccountSubnav.jsx'
 
 export default function ProfilePage() {
   const navigate = useNavigate()
@@ -69,6 +70,8 @@ export default function ProfilePage() {
           <h2 className="page-title">프로필 설정</h2>
         </div>
       </div>
+
+      <AccountSubnav active="settings" />
 
       <div className="subscribe-panel">
         <form className="auth-form" onSubmit={handleSubmit}>
