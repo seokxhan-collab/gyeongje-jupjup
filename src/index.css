@@ -1046,6 +1046,32 @@ body {
   color: #dc2626;
 }
 
+.comment-report-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.comment-report-btn:hover:not(:disabled) {
+  color: var(--accent);
+}
+
+.comment-report-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.comment-report-message {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
 .comment-item-body {
   margin: 0;
   font-size: 0.9rem;
