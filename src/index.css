@@ -468,6 +468,10 @@ body {
   background: var(--cat-policy);
 }
 
+.teaser-icon-calendar {
+  background: var(--cat-real_estate);
+}
+
 .teaser-body {
   flex: 1;
   min-width: 0;
@@ -2010,6 +2014,93 @@ body {
   color: var(--text-muted);
   font-size: 0.85rem;
   line-height: 1.6;
+}
+
+/* 경제 캘린더 */
+.calendar-category-list {
+  margin: 0 0 20px;
+}
+
+.calendar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.calendar-day-header {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.calendar-event-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calendar-event-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 20px;
+}
+
+.calendar-event-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.calendar-importance {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: #d97706;
+  letter-spacing: 1px;
+}
+
+.calendar-event-title {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.calendar-event-desc {
+  margin: 0 0 8px;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text);
+}
+
+.calendar-event-time {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.badge-calcat-central_bank {
+  color: var(--cat-policy);
+  background: color-mix(in srgb, var(--cat-policy) 15%, transparent);
+}
+
+.badge-calcat-employment {
+  color: var(--cat-industry);
+  background: color-mix(in srgb, var(--cat-industry) 15%, transparent);
+}
+
+.badge-calcat-inflation {
+  color: var(--cat-markets);
+  background: color-mix(in srgb, var(--cat-markets) 15%, transparent);
+}
+
+.badge-calcat-growth {
+  color: var(--cat-real_estate);
+  background: color-mix(in srgb, var(--cat-real_estate) 15%, transparent);
 }
 
 /* 주간 시황 총평 */

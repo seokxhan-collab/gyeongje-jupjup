@@ -16,6 +16,7 @@ import AboutPage from './pages/AboutPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
 import GlossaryPage from './pages/GlossaryPage.jsx'
+import CalendarPage from './pages/CalendarPage.jsx'
 import SubscribePage from './pages/SubscribePage.jsx'
 import ConfirmSubscriptionPage from './pages/ConfirmSubscriptionPage.jsx'
 import SignupPage from './pages/SignupPage.jsx'
@@ -77,6 +78,7 @@ export default function App() {
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/glossary" element={<GlossaryPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/confirm-subscription" element={<ConfirmSubscriptionPage />} />
         <Route path="/signup" element={<SignupPage />} />
