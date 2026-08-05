@@ -4,6 +4,7 @@ import { Check, Sparkles, Trophy, X } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { getClientId, getSavedNickname, saveNickname } from '../lib/clientId.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import { useAuth } from '../lib/AuthContext.jsx'
 import AdSlot from '../components/AdSlot.jsx'
 import QuizLeaderboard from '../components/QuizLeaderboard.jsx'
 
@@ -21,10 +22,12 @@ async function fetchRank(quizDate, score) {
 
 export default function QuizPage() {
   const { date } = useParams()
+  const { profile } = useAuth()
   const [quiz, setQuiz] = useState(null)
   const [loading, setLoading] = useState(true)
   const [phase, setPhase] = useState('loading') // loading | intro | playing | submitting | result
   const [nickname, setNickname] = useState(getSavedNickname)
+  const effectiveNickname = profile?.nickname ?? nickname
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selected, setSelected] = useState(null)
   const [answers, setAnswers] = useState([])
@@ -110,7 +113,7 @@ export default function QuizPage() {
   const isLast = currentIndex === total - 1
 
   function startQuiz() {
-    saveNickname(nickname.trim())
+    if (!profile) saveNickname(nickname.trim())
     setPhase('playing')
   }
 
@@ -135,7 +138,7 @@ export default function QuizPage() {
       body: {
         quiz_date: quiz.quiz_date,
         client_id: getClientId(),
-        nickname: nickname.trim(),
+        nickname: effectiveNickname.trim(),
         answers: nextAnswers,
       },
     })
@@ -183,14 +186,20 @@ export default function QuizPage() {
               <p className="quiz-intro-lead">
                 총 {total}문항입니다. 한 문제씩 풀고 나면 점수와 순위를 바로 확인할 수 있어요.
               </p>
-              <input
-                type="text"
-                className="quiz-nickname-input"
-                placeholder="순위표에 표시할 닉네임 (선택, 입력 안 하면 익명)"
-                value={nickname}
-                maxLength={20}
-                onChange={(e) => setNickname(e.target.value)}
-              />
+              {profile ? (
+                <p className="quiz-nickname-note">
+                  <strong>{profile.nickname}</strong>님으로 참여합니다.
+                </p>
+              ) : (
+                <input
+                  type="text"
+                  className="quiz-nickname-input"
+                  placeholder="순위표에 표시할 닉네임 (선택, 입력 안 하면 익명)"
+                  value={nickname}
+                  maxLength={20}
+                  onChange={(e) => setNickname(e.target.value)}
+                />
+              )}
               <button type="button" className="quiz-start-btn" onClick={startQuiz}>
                 퀴즈 시작
               </button>

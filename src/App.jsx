@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import { Analytics } from '@vercel/analytics/react'
-import { Bookmark } from 'lucide-react'
+import { Bookmark, User } from 'lucide-react'
 import Logo from './components/Logo.jsx'
 import ThemeToggle from './components/ThemeToggle.jsx'
 import SearchBar from './components/SearchBar.jsx'
@@ -18,11 +18,17 @@ import SavedPage from './pages/SavedPage.jsx'
 import GlossaryPage from './pages/GlossaryPage.jsx'
 import SubscribePage from './pages/SubscribePage.jsx'
 import ConfirmSubscriptionPage from './pages/ConfirmSubscriptionPage.jsx'
+import SignupPage from './pages/SignupPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import ProfilePage from './pages/ProfilePage.jsx'
+import NewsDetailPage from './pages/NewsDetailPage.jsx'
 import { useBookmarks } from './lib/useBookmarks.js'
+import { useAuth } from './lib/AuthContext.jsx'
 
 export default function App() {
   const [search, setSearch] = useState('')
   const { bookmarks } = useBookmarks()
+  const { user, profile } = useAuth()
 
   return (
     <div className="site">
@@ -42,6 +48,16 @@ export default function App() {
             <Bookmark size={18} />
             {bookmarks.length > 0 && <span className="saved-link-badge">{bookmarks.length}</span>}
           </Link>
+          {user ? (
+            <Link to="/profile" className="profile-link" aria-label="프로필">
+              <User size={18} />
+              <span className="profile-link-nickname">{profile?.nickname ?? '...'}</span>
+            </Link>
+          ) : (
+            <Link to="/login" className="auth-login-link">
+              로그인
+            </Link>
+          )}
           <ThemeToggle />
         </div>
       </header>
@@ -62,6 +78,10 @@ export default function App() {
         <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/confirm-subscription" element={<ConfirmSubscriptionPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/news/:id" element={<NewsDetailPage />} />
       </Routes>
 
       <Footer />
