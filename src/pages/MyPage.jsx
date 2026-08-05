@@ -4,7 +4,6 @@ import { Heart, MessageCircle, Sparkles, User } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
-import { getClientId } from '../lib/clientId.js'
 import { formatRelativeTime } from '../lib/time.js'
 import AccountSubnav from '../components/AccountSubnav.jsx'
 
@@ -46,7 +45,7 @@ export default function MyPage() {
       supabase
         .from('quiz_scores')
         .select('quiz_date, score, total')
-        .eq('client_id', getClientId())
+        .eq('user_id', user.id)
         .order('quiz_date', { ascending: false })
         .limit(30),
     ]).then(([commentsRes, reactionsRes, quizRes]) => {

@@ -45,6 +45,21 @@ Deno.serve(async (req) => {
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
   )
 
+  // 로그인한 사용자면 요청의 Authorization 헤더(사용자 access token)로 계정을 식별해
+  // quiz_scores.user_id에 연결한다. 비로그인 요청이거나 anon key로만 호출된 경우 user는 null이 되어
+  // 기존처럼 client_id 기반 익명 응시로 처리된다.
+  let userId: string | null = null
+  const authHeader = req.headers.get('Authorization')
+  if (authHeader) {
+    const supabaseAsCaller = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_ANON_KEY')!,
+      { global: { headers: { Authorization: authHeader } } },
+    )
+    const { data: userData } = await supabaseAsCaller.auth.getUser()
+    userId = userData.user?.id ?? null
+  }
+
   const { data: quiz, error: quizError } = await supabase
     .from('quizzes')
     .select('questions')
@@ -78,7 +93,7 @@ Deno.serve(async (req) => {
 
   const { error: insertError } = await supabase
     .from('quiz_scores')
-    .insert({ quiz_date, client_id, nickname, score, total })
+    .insert({ quiz_date, client_id, nickname, score, total, user_id: userId })
 
   let alreadyPlayed = false
   let finalScore = score
@@ -87,6 +102,15 @@ Deno.serve(async (req) => {
     // 23505 = unique_violation: 오늘 이미 응시함. 기존 기록을 그대로 사용한다(재도전으로 점수 갱신 방지).
     if (insertError.code === '23505') {
       alreadyPlayed = true
+      // 익명으로 먼저 응시하고 나중에 로그인한 경우를 대비해, 기존 기록에 user_id가 없다면 지금 채워준다.
+      if (userId) {
+        await supabase
+          .from('quiz_scores')
+          .update({ user_id: userId })
+          .eq('quiz_date', quiz_date)
+          .eq('client_id', client_id)
+          .is('user_id', null)
+      }
       const { data: existing, error: fetchError } = await supabase
         .from('quiz_scores')
         .select('score, total')
