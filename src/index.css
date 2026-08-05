@@ -308,8 +308,7 @@ body {
   transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
 }
 
-.site-nav-item:hover .site-nav-dropdown,
-.site-nav-item:focus-within .site-nav-dropdown {
+.site-nav-item:hover .site-nav-dropdown {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -370,8 +369,7 @@ body {
   transition: transform 0.16s ease;
 }
 
-.site-nav-item:hover .category-tab-chevron,
-.site-nav-item:focus-within .category-tab-chevron {
+.site-nav-item:hover .category-tab-chevron {
   transform: rotate(180deg);
 }
 
