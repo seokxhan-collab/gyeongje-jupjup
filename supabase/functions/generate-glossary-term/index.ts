@@ -8,6 +8,8 @@ const MODEL = 'claude-haiku-4-5-20251001'
 const CANDIDATE_WINDOW_HOURS = 30
 const CANDIDATE_LIMIT = 40
 
+const CATEGORIES = ['markets', 'real_estate', 'industry', 'policy', 'crypto', 'general']
+
 const GLOSSARY_TOOL = {
   name: 'save_glossary_term',
   description: '오늘의 경제 용어를 저장한다.',
@@ -23,8 +25,14 @@ const GLOSSARY_TOOL = {
         type: 'string',
         description: '오늘 뉴스나 일상 사례를 든 1~2문장 예시. 뉴스 원문 문장을 그대로 베끼지 않는다.',
       },
+      category: {
+        type: 'string',
+        enum: CATEGORIES,
+        description:
+          '용어 분류. markets=증권·금융, real_estate=부동산, industry=산업·기업, policy=정책·거시, crypto=가상자산, general=기타(어느 분류에도 딱 맞지 않는 일반 경제 개념)',
+      },
     },
-    required: ['term', 'definition', 'example'],
+    required: ['term', 'definition', 'example', 'category'],
   },
 }
 
@@ -49,6 +57,7 @@ ${excluded}
 - 이미 등록된 용어와 같거나 사실상 같은 뜻의 용어는 절대 고르지 않는다.
 - 설명과 예시는 뉴스 문장을 그대로 베끼지 말고 완전히 새로 작성한 한국어 문장으로 만든다.
 - 전문 용어를 쉬운 비유나 일상 사례로 풀어서 설명한다.
+- 용어의 성격에 가장 잘 맞는 category를 하나 고른다.
 - save_glossary_term 도구를 호출해서 결과를 저장한다.
 
 뉴스 후보 목록:
@@ -128,12 +137,13 @@ Deno.serve(async () => {
     })
   }
 
-  const { term, definition, example } = toolUse.input
+  const { term, definition, example, category } = toolUse.input
+  const safeCategory = CATEGORIES.includes(category) ? category : 'general'
 
   const { error: upsertError } = await supabase
     .from('glossary_terms')
     .upsert(
-      { term, definition, example, model: MODEL },
+      { term, definition, example, model: MODEL, category: safeCategory },
       { onConflict: 'term', ignoreDuplicates: true },
     )
 

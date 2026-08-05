@@ -2,11 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { BookOpen } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import { CATEGORIES, categoryLabel } from '../lib/categories.js'
 
 export default function GlossaryPage() {
   const [terms, setTerms] = useState([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState('')
+  const [category, setCategory] = useState('all')
 
   useDocumentMeta({
     title: '경제 용어사전',
@@ -17,7 +19,7 @@ export default function GlossaryPage() {
     let cancelled = false
     supabase
       .from('glossary_terms')
-      .select('term, definition, example, created_at')
+      .select('term, definition, example, category, created_at')
       .order('created_at', { ascending: false })
       .then(({ data }) => {
         if (!cancelled) {
@@ -32,9 +34,12 @@ export default function GlossaryPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim()
-    if (!q) return terms
-    return terms.filter((t) => t.term.includes(q) || t.definition.includes(q))
-  }, [terms, query])
+    return terms.filter((t) => {
+      if (category !== 'all' && t.category !== category) return false
+      if (!q) return true
+      return t.term.includes(q) || t.definition.includes(q)
+    })
+  }, [terms, query, category])
 
   return (
     <div className="site-container site-page">
@@ -54,15 +59,30 @@ export default function GlossaryPage() {
         onChange={(e) => setQuery(e.target.value)}
       />
 
+      <div className="filter-list glossary-category-list">
+        {[{ value: 'all', label: '전체' }, ...CATEGORIES].map((c) => (
+          <button
+            key={c.value}
+            className={`chip ${category === c.value ? 'active' : ''}`}
+            onClick={() => setCategory(c.value)}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+
       {loading && <p className="page-empty">불러오는 중입니다...</p>}
       {!loading && filtered.length === 0 && (
-        <p className="page-empty">{query ? '검색 결과가 없습니다.' : '아직 등록된 용어가 없습니다.'}</p>
+        <p className="page-empty">{query || category !== 'all' ? '검색 결과가 없습니다.' : '아직 등록된 용어가 없습니다.'}</p>
       )}
 
       <ul className="glossary-list">
         {filtered.map((t) => (
           <li key={t.term} className="glossary-item">
-            <h3 className="glossary-term">{t.term}</h3>
+            <div className="glossary-item-head">
+              <h3 className="glossary-term">{t.term}</h3>
+              <span className="glossary-category-tag">{categoryLabel(t.category)}</span>
+            </div>
             <p className="glossary-definition">{t.definition}</p>
             {t.example && <p className="glossary-example">{t.example}</p>}
           </li>

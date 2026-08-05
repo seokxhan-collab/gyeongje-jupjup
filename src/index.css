@@ -1496,6 +1496,33 @@ body {
   border-color: var(--accent);
 }
 
+.glossary-category-list {
+  margin: 0 0 20px;
+}
+
+.glossary-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0 0 8px;
+}
+
+.glossary-item-head .glossary-term {
+  margin: 0;
+}
+
+.glossary-category-tag {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
 .glossary-list {
   margin: 0;
   padding: 0;
