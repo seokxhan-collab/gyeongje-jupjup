@@ -2018,10 +2018,6 @@ body {
 }
 
 /* 경제 캘린더 */
-.calendar-category-list {
-  margin: 0 0 20px;
-}
-
 .calendar-list {
   display: flex;
   flex-direction: column;

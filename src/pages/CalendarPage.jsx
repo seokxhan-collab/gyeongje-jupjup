@@ -17,10 +17,19 @@ function formatDateHeader(dateStr) {
   return new Intl.DateTimeFormat('ko-KR', { month: 'long', day: 'numeric', weekday: 'short' }).format(d)
 }
 
+function monthKey(dateStr) {
+  return dateStr.slice(0, 7)
+}
+
+function monthLabel(key) {
+  return `${Number(key.slice(5, 7))}월`
+}
+
 export default function CalendarPage() {
   const [events, setEvents] = useState([])
   const [loading, setLoading] = useState(true)
   const [category, setCategory] = useState('all')
+  const [month, setMonth] = useState('all')
 
   useDocumentMeta({
     title: '경제 캘린더',
@@ -32,7 +41,6 @@ export default function CalendarPage() {
     supabase
       .from('economic_events')
       .select('id, event_date, title, category, country, importance, time_label, description')
-      .gte('event_date', todayISODate())
       .order('event_date', { ascending: true })
       .then(({ data }) => {
         if (!cancelled) {
@@ -45,10 +53,19 @@ export default function CalendarPage() {
     }
   }, [])
 
+  const months = useMemo(() => {
+    const keys = new Set(events.map((e) => monthKey(e.event_date)))
+    return Array.from(keys).sort()
+  }, [events])
+
   const filtered = useMemo(() => {
-    if (category === 'all') return events
-    return events.filter((e) => e.category === category)
-  }, [events, category])
+    const today = todayISODate()
+    return events.filter((e) => {
+      if (category !== 'all' && e.category !== category) return false
+      if (month === 'all') return e.event_date >= today
+      return monthKey(e.event_date) === month
+    })
+  }, [events, category, month])
 
   const grouped = useMemo(() => {
     const map = new Map()
@@ -69,20 +86,45 @@ export default function CalendarPage() {
         <span className="page-date">FOMC·한국은행 금통위·CPI·고용지표 등 주요 경제 일정을 미리 확인하세요</span>
       </div>
 
-      <div className="filter-list calendar-category-list">
-        {[{ value: 'all', label: '전체' }, ...EVENT_CATEGORIES].map((c) => (
-          <button
-            key={c.value}
-            className={`chip ${category === c.value ? 'active' : ''}`}
-            onClick={() => setCategory(c.value)}
-          >
-            {c.label}
-          </button>
-        ))}
-      </div>
+      <nav className="filter-bar" aria-label="경제 캘린더 필터">
+        <div className="filter-group">
+          <span className="filter-label">카테고리</span>
+          <div className="filter-list">
+            {[{ value: 'all', label: '전체' }, ...EVENT_CATEGORIES].map((c) => (
+              <button
+                key={c.value}
+                className={`chip ${category === c.value ? 'active' : ''}`}
+                onClick={() => setCategory(c.value)}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="filter-divider" aria-hidden="true" />
+
+        <div className="filter-group">
+          <span className="filter-label">월</span>
+          <div className="filter-list">
+            <button className={`chip ${month === 'all' ? 'active' : ''}`} onClick={() => setMonth('all')}>
+              전체
+            </button>
+            {months.map((m) => (
+              <button key={m} className={`chip ${month === m ? 'active' : ''}`} onClick={() => setMonth(m)}>
+                {monthLabel(m)}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
 
       {loading && <p className="page-empty">불러오는 중입니다...</p>}
-      {!loading && grouped.length === 0 && <p className="page-empty">예정된 일정이 없습니다.</p>}
+      {!loading && grouped.length === 0 && (
+        <p className="page-empty">
+          {month === 'all' ? '예정된 일정이 없습니다.' : '선택한 달에는 등록된 일정이 없습니다.'}
+        </p>
+      )}
 
       <div className="calendar-list">
         {grouped.map(([date, dayEvents]) => (
