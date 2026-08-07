@@ -36,13 +36,13 @@ export default function App() {
     <div className="site">
       <header className="site-topbar">
         <div className="site-container site-topbar-inner">
-          <div className="site-brand">
+          <a className="site-brand" href="/">
             <Logo size={38} />
             <div>
               <h1>경제줍줍</h1>
               <p>국내외 경제뉴스를 한 곳에 모아봅니다</p>
             </div>
-          </div>
+          </a>
           <div className="site-topbar-search">
             <SearchBar value={search} onChange={setSearch} />
           </div>
