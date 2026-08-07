@@ -10,6 +10,7 @@ const LINKS = [
   { to: '/weekly', label: '주간 시황' },
   { to: '/glossary', label: '용어사전' },
   { to: '/calendar', label: '경제 캘린더' },
+  { to: '/community', label: '커뮤니티' },
 ]
 
 export default function SiteNav() {

@@ -1329,6 +1329,50 @@ body {
   white-space: nowrap;
 }
 
+/* 커뮤니티 */
+.community-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.community-write-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.community-list-item {
+  justify-content: flex-start;
+}
+
+.community-list-category {
+  flex-shrink: 0;
+}
+
+.community-list-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.community-post-actions {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
 /* 오늘의 경제 퀴즈 */
 .quiz-list {
   margin: 0;
