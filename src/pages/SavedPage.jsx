@@ -1,6 +1,7 @@
 import { Bookmark } from 'lucide-react'
 import { useBookmarks } from '../lib/useBookmarks.js'
 import NewsCard from '../components/NewsCard.jsx'
+import AdSlot from '../components/AdSlot.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 export default function SavedPage() {
@@ -11,6 +12,8 @@ export default function SavedPage() {
 
   return (
     <div className="site-container site-main-container">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <Bookmark size={18} />

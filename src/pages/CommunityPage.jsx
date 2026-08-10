@@ -6,6 +6,7 @@ import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import { formatRelativeTime } from '../lib/time.js'
 import { COMMUNITY_CATEGORIES, communityCategoryLabel } from '../lib/communityCategories.js'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function CommunityPage() {
   const { user } = useAuth()
@@ -54,6 +55,8 @@ export default function CommunityPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <MessagesSquare size={18} />

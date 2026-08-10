@@ -3,6 +3,7 @@ import { CalendarDays } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import { EVENT_CATEGORIES, eventCategoryLabel } from '../lib/eventCategories.js'
+import AdSlot from '../components/AdSlot.jsx'
 
 const MONTH_OPTIONS = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))
 
@@ -91,6 +92,8 @@ export default function CalendarPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <CalendarDays size={18} />

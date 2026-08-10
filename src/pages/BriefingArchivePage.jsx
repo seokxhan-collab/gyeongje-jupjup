@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function BriefingArchivePage() {
   const [briefings, setBriefings] = useState([])
@@ -32,6 +33,8 @@ export default function BriefingArchivePage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <Sparkles size={18} />

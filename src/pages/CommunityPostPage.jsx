@@ -7,6 +7,7 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import { formatRelativeTime } from '../lib/time.js'
 import { communityCategoryLabel } from '../lib/communityCategories.js'
 import CommunityCommentList from '../components/CommunityCommentList.jsx'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function CommunityPostPage() {
   const { id } = useParams()
@@ -80,6 +81,8 @@ export default function CommunityPostPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <MessagesSquare size={18} />
@@ -129,6 +132,8 @@ export default function CommunityPostPage() {
         )}
         {reportMessage && <p className="comment-report-message">{reportMessage}</p>}
       </article>
+
+      <AdSlot placement="in-feed" />
 
       <CommunityCommentList postId={post.id} />
     </div>

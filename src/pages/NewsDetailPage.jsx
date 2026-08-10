@@ -7,6 +7,7 @@ import { categoryLabel } from '../lib/categories.js'
 import { formatRelativeTime } from '../lib/time.js'
 import NewsReactions from '../components/NewsReactions.jsx'
 import CommentList from '../components/CommentList.jsx'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function NewsDetailPage() {
   const { id } = useParams()
@@ -57,6 +58,8 @@ export default function NewsDetailPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <MessageCircle size={18} />
@@ -82,6 +85,8 @@ export default function NewsDetailPage() {
 
         <NewsReactions newsId={news.id} />
       </article>
+
+      <AdSlot placement="in-feed" />
 
       <CommentList newsId={news.id} />
     </div>

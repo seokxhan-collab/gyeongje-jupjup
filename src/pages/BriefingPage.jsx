@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ExternalLink, Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function BriefingPage() {
   const { date } = useParams()
@@ -58,6 +59,8 @@ export default function BriefingPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <Sparkles size={18} />

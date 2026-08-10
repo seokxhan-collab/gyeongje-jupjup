@@ -3,6 +3,7 @@ import { BookOpen } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 import { CATEGORIES, categoryLabel } from '../lib/categories.js'
+import AdSlot from '../components/AdSlot.jsx'
 
 export default function GlossaryPage() {
   const [terms, setTerms] = useState([])
@@ -43,6 +44,8 @@ export default function GlossaryPage() {
 
   return (
     <div className="site-container site-page">
+      <AdSlot placement="top-banner" />
+
       <div className="page-header">
         <div className="page-header-title">
           <BookOpen size={18} />
