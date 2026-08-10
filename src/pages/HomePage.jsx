@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import DailyBriefing from '../components/DailyBriefing.jsx'
 import NewsFeed from '../components/NewsFeed.jsx'
 import FilterBar from '../components/FilterBar.jsx'
 import AdSlot from '../components/AdSlot.jsx'
@@ -39,7 +38,6 @@ export default function HomePage({ search }) {
 
           <aside className="site-sidebar">
             <OriginalContentTeaser />
-            <DailyBriefing />
             <AdSlot placement="sidebar" />
           </aside>
         </div>
