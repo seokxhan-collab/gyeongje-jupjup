@@ -527,6 +527,21 @@ body {
   font-size: 0.82rem;
 }
 
+.briefing-expand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 16px;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.briefing-expand-link:hover {
+  text-decoration: underline;
+}
+
 .briefing-list {
   margin: 0;
   padding-left: 22px;
@@ -554,6 +569,14 @@ body {
   margin: 20px 0 0;
   font-size: 0.78rem;
   color: var(--text-muted);
+}
+
+.briefing-page {
+  padding: 32px;
+}
+
+.briefing-page .briefing-item-summary {
+  font-size: 1.08rem;
 }
 
 .filter-bar {

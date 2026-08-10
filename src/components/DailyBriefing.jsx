@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { ExternalLink, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ExternalLink, Maximize2, Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 
 export default function DailyBriefing() {
@@ -36,6 +37,9 @@ export default function DailyBriefing() {
         </div>
         <span className="briefing-date">{briefing.briefing_date}</span>
       </div>
+      <Link to="/briefing" className="briefing-expand-link">
+        <Maximize2 size={12} /> 크게 보기
+      </Link>
       <ol className="briefing-list">
         {(briefing.items ?? []).map((item, i) => (
           <li key={i} className="briefing-item">

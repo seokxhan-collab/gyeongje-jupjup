@@ -8,6 +8,8 @@ import SearchBar from './components/SearchBar.jsx'
 import SiteNav from './components/SiteNav.jsx'
 import Footer from './components/Footer.jsx'
 import HomePage from './pages/HomePage.jsx'
+import BriefingPage from './pages/BriefingPage.jsx'
+import BriefingArchivePage from './pages/BriefingArchivePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
@@ -67,6 +69,9 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<HomePage search={search} />} />
+        <Route path="/briefing" element={<BriefingPage />} />
+        <Route path="/briefing/archive" element={<BriefingArchivePage />} />
+        <Route path="/briefing/:date" element={<BriefingPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/saved" element={<SavedPage />} />
