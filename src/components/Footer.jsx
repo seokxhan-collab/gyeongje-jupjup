@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="site-container site-footer-inner">
         <div className="site-footer-col site-footer-about">
           <div className="site-footer-brand">경제줍줍</div>
-          <p className="site-footer-tagline">국내외 경제뉴스를 한 곳에 모아봅니다</p>
+          <p className="site-footer-tagline">국내 경제뉴스를 한 곳에 모아봅니다</p>
           <p className="site-footer-disclaimer">
             본 서비스가 제공하는 브리핑은 AI가 원문을 재구성해 요약한 내용으로, 투자 판단의 참고용으로만 활용하시기 바랍니다.
           </p>

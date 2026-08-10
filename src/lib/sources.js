@@ -4,7 +4,4 @@ export const SOURCES = [
   { source: '매일경제', country: 'domestic' },
   { source: '연합뉴스', country: 'domestic' },
   { source: '이투데이', country: 'domestic' },
-  { source: 'CNBC', country: 'international' },
-  { source: 'WSJ', country: 'international' },
-  { source: 'Financial Times', country: 'international' },
 ]

@@ -7,13 +7,11 @@ import { XMLParser } from 'https://esm.sh/fast-xml-parser@4.5.0'
 
 // 한국경제(hankyung.com)는 자동화된 반복 요청 시 Cloudflare 봇 차단(403)에 걸리는 것을
 // 실제 테스트로 확인해 제외했다 (2026-08-02). 이투데이로 대체.
+// 해외 소스(CNBC/WSJ/FT)는 API 비용이 드는 한국어 번역이 필수적이라 2026-08-10 제외했다.
 const SOURCES = [
   { source: '매일경제', country: 'domestic', url: 'https://www.mk.co.kr/rss/30100041/' },
   { source: '연합뉴스', country: 'domestic', url: 'https://www.yna.co.kr/rss/economy.xml' },
   { source: '이투데이', country: 'domestic', url: 'https://rss.etoday.co.kr/eto/economy_news.xml' },
-  { source: 'CNBC', country: 'international', url: 'https://www.cnbc.com/id/10000739/device/rss/rss.html' },
-  { source: 'WSJ', country: 'international', url: 'https://feeds.content.dowjones.io/public/rss/RSSMarketsMain' },
-  { source: 'Financial Times', country: 'international', url: 'https://www.ft.com/rss/home' },
 ] as const
 
 const MAX_SUMMARY_LENGTH = 280

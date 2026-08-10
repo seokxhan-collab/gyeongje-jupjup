@@ -3,7 +3,7 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 export default function AboutPage() {
   useDocumentMeta({
     title: '사이트 소개',
-    description: '경제줍줍은 국내외 경제뉴스를 모아 보여주고, AI가 만드는 퀴즈·주간 시황·용어사전을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
+    description: '경제줍줍은 국내 경제뉴스를 모아 보여주고, AI가 만드는 퀴즈·주간 시황·용어사전을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
   })
 
   return (
@@ -14,9 +14,8 @@ export default function AboutPage() {
 
       <article className="legal-article">
         <p>
-          경제줍줍은 국내외 주요 언론사의 경제 뉴스를 한 곳에 모아 보여주는 뉴스 큐레이션 서비스입니다.
-          매일경제, 연합뉴스, 이투데이 등 국내 매체와 CNBC, WSJ, Financial Times 등 해외 매체의 경제
-          기사를 수집해 분야별·지역별로 정리해 제공합니다.
+          경제줍줍은 국내 주요 언론사의 경제 뉴스를 한 곳에 모아 보여주는 뉴스 큐레이션 서비스입니다.
+          매일경제, 연합뉴스, 이투데이 등 국내 매체의 경제 기사를 수집해 분야별로 정리해 제공합니다.
         </p>
 
         <h3>자체 제작 콘텐츠</h3>

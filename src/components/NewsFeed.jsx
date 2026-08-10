@@ -8,7 +8,7 @@ function escapeIlikeTerm(term) {
   return term.trim().replace(/[%_,()]/g, ' ').replace(/\s+/g, ' ').trim()
 }
 
-export default function NewsFeed({ country, category, activeSources, search }) {
+export default function NewsFeed({ category, activeSources, search }) {
   const [news, setNews] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -24,7 +24,6 @@ export default function NewsFeed({ country, category, activeSources, search }) {
       .order('published_at', { ascending: false })
       .limit(PAGE_SIZE)
 
-    if (country !== 'all') query = query.eq('source_country', country)
     if (category !== 'all') query = query.eq('category', category)
     if (activeSources.size > 0) query = query.in('source', Array.from(activeSources))
 
@@ -41,7 +40,7 @@ export default function NewsFeed({ country, category, activeSources, search }) {
     return () => {
       cancelled = true
     }
-  }, [country, category, activeSources, search])
+  }, [category, activeSources, search])
 
   return (
     <section>

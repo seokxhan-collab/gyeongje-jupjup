@@ -1,7 +1,7 @@
 {
   "name": "경제줍줍",
   "short_name": "경제줍줍",
-  "description": "국내외 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트",
+  "description": "국내 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FBFAF7",

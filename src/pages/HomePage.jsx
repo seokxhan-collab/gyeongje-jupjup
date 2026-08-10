@@ -10,18 +10,12 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 export default function HomePage({ search }) {
   const [searchParams] = useSearchParams()
   const category = searchParams.get('category') ?? 'all'
-  const [country, setCountry] = useState('all')
   const [activeSources, setActiveSources] = useState(new Set())
 
   useDocumentMeta({
-    title: '국내외 경제뉴스 모음',
-    description: '국내외 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트. 매일 아침 AI가 재구성한 경제 브리핑도 함께 제공합니다.',
+    title: '국내 경제뉴스 모음',
+    description: '국내 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트. 매일 아침 AI가 재구성한 경제 브리핑도 함께 제공합니다.',
   })
-
-  function handleCountryChange(next) {
-    setCountry(next)
-    setActiveSources(new Set())
-  }
 
   function toggleSource(source) {
     setActiveSources((prev) => {
@@ -39,13 +33,8 @@ export default function HomePage({ search }) {
 
         <div className="site-body">
           <main className="site-main">
-            <FilterBar
-              country={country}
-              onCountryChange={handleCountryChange}
-              activeSources={activeSources}
-              onToggleSource={toggleSource}
-            />
-            <NewsFeed country={country} category={category} activeSources={activeSources} search={search} />
+            <FilterBar activeSources={activeSources} onToggleSource={toggleSource} />
+            <NewsFeed category={category} activeSources={activeSources} search={search} />
           </main>
 
           <aside className="site-sidebar">

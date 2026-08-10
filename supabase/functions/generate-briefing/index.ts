@@ -46,7 +46,7 @@ function buildPrompt(candidates: { idx: number; source: string; title: string; s
     .map((c) => `[${c.idx}] (${c.source}) ${c.title}\n요약: ${c.summary || '(요약 없음)'}\n링크: ${c.link}`)
     .join('\n\n')
 
-  return `아래는 최근 ${CANDIDATE_WINDOW_HOURS}시간 동안 수집된 국내외 경제뉴스 후보 목록이다.
+  return `아래는 최근 ${CANDIDATE_WINDOW_HOURS}시간 동안 수집된 국내 경제뉴스 후보 목록이다.
 이 중에서 오늘의 경제 브리핑에 실을 가장 중요한 뉴스 5~10개를 골라라.
 
 규칙:

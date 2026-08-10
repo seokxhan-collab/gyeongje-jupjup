@@ -43,7 +43,7 @@ export default function App() {
             <Logo size={38} />
             <div>
               <h1>경제줍줍</h1>
-              <p>국내외 경제뉴스를 한 곳에 모아봅니다</p>
+              <p>국내 경제뉴스를 한 곳에 모아봅니다</p>
             </div>
           </a>
           <div className="site-topbar-search">

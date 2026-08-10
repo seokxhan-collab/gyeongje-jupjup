@@ -1356,8 +1356,16 @@ body {
   justify-content: flex-start;
 }
 
+.community-list-item-pinned {
+  background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
+}
+
 .community-list-category {
   flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
 }
 
 .community-list-title {

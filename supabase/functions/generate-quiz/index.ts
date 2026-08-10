@@ -66,7 +66,7 @@ function buildPrompt(candidates: { idx: number; source: string; title: string; s
     .map((c) => `[${c.idx}] (${c.source}) ${c.title}\n요약: ${c.summary || '(요약 없음)'}`)
     .join('\n\n')
 
-  return `아래는 최근 ${CANDIDATE_WINDOW_HOURS}시간 동안 수집된 국내외 경제뉴스 후보 목록이다.
+  return `아래는 최근 ${CANDIDATE_WINDOW_HOURS}시간 동안 수집된 국내 경제뉴스 후보 목록이다.
 이 뉴스들을 참고해서 일반 독자가 풀 만한 오늘의 경제 상식 퀴즈 4~5문항을 새로 만들어라.
 
 규칙:

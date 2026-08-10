@@ -16,7 +16,7 @@ export function useDocumentMeta({ title, description, noindex = false }) {
 
   useEffect(() => {
     const fullTitle = title ? `${SITE_NAME} - ${title}` : SITE_NAME
-    const desc = description ?? '국내외 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트.'
+    const desc = description ?? '국내 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트.'
     const canonicalUrl = `${SITE_URL}${location.pathname}`
 
     document.title = fullTitle

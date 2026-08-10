@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Flag, MessagesSquare, Trash2 } from 'lucide-react'
+import { Flag, MessagesSquare, Pin, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
@@ -22,7 +22,7 @@ export default function CommunityPostPage() {
     setLoading(true)
     supabase
       .from('community_posts')
-      .select('id, title, body, category, created_at, user_id, profiles(nickname)')
+      .select('id, title, body, category, pinned, created_at, user_id, profiles(nickname)')
       .eq('id', id)
       .maybeSingle()
       .then(({ data }) => {
@@ -94,7 +94,10 @@ export default function CommunityPostPage() {
       <article className="news-detail-card">
         <div className="news-card-meta">
           <div className="news-card-tags">
-            <span className="glossary-category-tag">{communityCategoryLabel(post.category)}</span>
+            <span className="glossary-category-tag community-list-category">
+              {post.pinned ? <Pin size={11} /> : null}
+              {post.pinned ? '공지' : communityCategoryLabel(post.category)}
+            </span>
           </div>
           <span className="news-card-time">
             {post.profiles?.nickname ?? '알 수 없음'} · {formatRelativeTime(post.created_at)}
@@ -103,25 +106,27 @@ export default function CommunityPostPage() {
         <h1 className="news-detail-title">{post.title}</h1>
         <p className="news-detail-summary">{post.body}</p>
 
-        <div className="comment-item-head community-post-actions">
-          {user?.id === post.user_id ? (
-            <button type="button" className="comment-delete-btn" onClick={handleDelete} aria-label="글 삭제">
-              <Trash2 size={14} /> 삭제
-            </button>
-          ) : (
-            user && (
-              <button
-                type="button"
-                className="comment-report-btn"
-                onClick={handleReport}
-                disabled={reported}
-                aria-label="글 신고"
-              >
-                <Flag size={14} /> 신고
+        {!post.pinned && (
+          <div className="comment-item-head community-post-actions">
+            {user?.id === post.user_id ? (
+              <button type="button" className="comment-delete-btn" onClick={handleDelete} aria-label="글 삭제">
+                <Trash2 size={14} /> 삭제
               </button>
-            )
-          )}
-        </div>
+            ) : (
+              user && (
+                <button
+                  type="button"
+                  className="comment-report-btn"
+                  onClick={handleReport}
+                  disabled={reported}
+                  aria-label="글 신고"
+                >
+                  <Flag size={14} /> 신고
+                </button>
+              )
+            )}
+          </div>
+        )}
         {reportMessage && <p className="comment-report-message">{reportMessage}</p>}
       </article>
 

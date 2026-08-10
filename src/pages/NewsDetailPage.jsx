@@ -33,7 +33,7 @@ export default function NewsDetailPage() {
 
   useDocumentMeta({
     title: news?.title ?? '뉴스',
-    description: news?.summary ?? '경제줍줍에서 모은 국내외 경제뉴스.',
+    description: news?.summary ?? '경제줍줍에서 모은 국내 경제뉴스.',
   })
 
   if (loading) {
