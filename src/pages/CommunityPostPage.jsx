@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Flag, MessagesSquare, Pin, Trash2 } from 'lucide-react'
+import { Flag, MessagesSquare, Pencil, Pin, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
@@ -79,6 +79,10 @@ export default function CommunityPostPage() {
     )
   }
 
+  const canEdit = user?.id === post.user_id || profile?.is_admin
+  const canDelete = profile?.is_admin || (!post.pinned && user?.id === post.user_id)
+  const canReport = !post.pinned && user && !canDelete
+
   return (
     <div className="site-container site-page">
       <AdSlot placement="top-banner" />
@@ -109,24 +113,28 @@ export default function CommunityPostPage() {
         <h1 className="news-detail-title">{post.title}</h1>
         <p className="news-detail-summary">{post.body}</p>
 
-        {!post.pinned && (
+        {(canEdit || canDelete || canReport) && (
           <div className="comment-item-head community-post-actions">
-            {user?.id === post.user_id || profile?.is_admin ? (
+            {canEdit && (
+              <Link to={`/community/${id}/edit`} className="comment-report-btn" aria-label="글 수정">
+                <Pencil size={14} /> 수정
+              </Link>
+            )}
+            {canDelete && (
               <button type="button" className="comment-delete-btn" onClick={handleDelete} aria-label="글 삭제">
                 <Trash2 size={14} /> 삭제
               </button>
-            ) : (
-              user && (
-                <button
-                  type="button"
-                  className="comment-report-btn"
-                  onClick={handleReport}
-                  disabled={reported}
-                  aria-label="글 신고"
-                >
-                  <Flag size={14} /> 신고
-                </button>
-              )
+            )}
+            {canReport && (
+              <button
+                type="button"
+                className="comment-report-btn"
+                onClick={handleReport}
+                disabled={reported}
+                aria-label="글 신고"
+              >
+                <Flag size={14} /> 신고
+              </button>
             )}
           </div>
         )}

@@ -24,6 +24,7 @@ import MyPage from './pages/MyPage.jsx'
 import NewsDetailPage from './pages/NewsDetailPage.jsx'
 import CommunityPage from './pages/CommunityPage.jsx'
 import CommunityWritePage from './pages/CommunityWritePage.jsx'
+import CommunityEditPage from './pages/CommunityEditPage.jsx'
 import CommunityPostPage from './pages/CommunityPostPage.jsx'
 import { useBookmarks } from './lib/useBookmarks.js'
 import { useAuth } from './lib/AuthContext.jsx'
@@ -86,6 +87,7 @@ export default function App() {
         <Route path="/news/:id" element={<NewsDetailPage />} />
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/community/new" element={<CommunityWritePage />} />
+        <Route path="/community/:id/edit" element={<CommunityEditPage />} />
         <Route path="/community/:id" element={<CommunityPostPage />} />
       </Routes>
 
