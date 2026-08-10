@@ -8,14 +8,9 @@ import SearchBar from './components/SearchBar.jsx'
 import SiteNav from './components/SiteNav.jsx'
 import Footer from './components/Footer.jsx'
 import HomePage from './pages/HomePage.jsx'
-import QuizPage from './pages/QuizPage.jsx'
-import QuizArchivePage from './pages/QuizArchivePage.jsx'
-import WeeklyReviewPage from './pages/WeeklyReviewPage.jsx'
-import WeeklyArchivePage from './pages/WeeklyArchivePage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import SavedPage from './pages/SavedPage.jsx'
-import GlossaryPage from './pages/GlossaryPage.jsx'
 import CalendarPage from './pages/CalendarPage.jsx'
 import SubscribePage from './pages/SubscribePage.jsx'
 import ConfirmSubscriptionPage from './pages/ConfirmSubscriptionPage.jsx'
@@ -71,16 +66,9 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<HomePage search={search} />} />
-        <Route path="/quiz" element={<QuizPage />} />
-        <Route path="/quiz/archive" element={<QuizArchivePage />} />
-        <Route path="/quiz/:date" element={<QuizPage />} />
-        <Route path="/weekly" element={<WeeklyReviewPage />} />
-        <Route path="/weekly/archive" element={<WeeklyArchivePage />} />
-        <Route path="/weekly/:date" element={<WeeklyReviewPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route path="/saved" element={<SavedPage />} />
-        <Route path="/glossary" element={<GlossaryPage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/confirm-subscription" element={<ConfirmSubscriptionPage />} />

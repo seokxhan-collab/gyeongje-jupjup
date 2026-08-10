@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Heart, MessageCircle, Sparkles, User } from 'lucide-react'
+import { Heart, MessageCircle, User } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useAuth } from '../lib/AuthContext.jsx'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
@@ -12,7 +12,6 @@ export default function MyPage() {
   const { user, profile, loading: authLoading } = useAuth()
   const [comments, setComments] = useState([])
   const [likedNews, setLikedNews] = useState([])
-  const [quizHistory, setQuizHistory] = useState([])
   const [loading, setLoading] = useState(true)
 
   useDocumentMeta({ title: '내 활동', noindex: true })
@@ -42,17 +41,10 @@ export default function MyPage() {
         .eq('reaction', 'like')
         .order('created_at', { ascending: false })
         .limit(50),
-      supabase
-        .from('quiz_scores')
-        .select('quiz_date, score, total')
-        .eq('user_id', user.id)
-        .order('quiz_date', { ascending: false })
-        .limit(30),
-    ]).then(([commentsRes, reactionsRes, quizRes]) => {
+    ]).then(([commentsRes, reactionsRes]) => {
       if (cancelled) return
       setComments(commentsRes.data ?? [])
       setLikedNews(reactionsRes.data ?? [])
-      setQuizHistory(quizRes.data ?? [])
       setLoading(false)
     })
 
@@ -112,25 +104,6 @@ export default function MyPage() {
                 {r.news?.title ?? '삭제된 뉴스'}
               </Link>
               <span className="mypage-item-time">{formatRelativeTime(r.created_at)}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mypage-section">
-        <h3 className="mypage-section-title">
-          <Sparkles size={16} /> 퀴즈 기록 ({quizHistory.length})
-        </h3>
-        {!loading && quizHistory.length === 0 && <p className="status-text">아직 퀴즈에 참여하지 않았습니다.</p>}
-        <ul className="mypage-list">
-          {quizHistory.map((q) => (
-            <li key={q.quiz_date} className="mypage-item">
-              <Link to={`/quiz/${q.quiz_date}`} className="mypage-item-link">
-                {q.quiz_date} 퀴즈
-              </Link>
-              <span className="mypage-item-score">
-                {q.score} / {q.total}점
-              </span>
             </li>
           ))}
         </ul>
