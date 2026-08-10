@@ -6,6 +6,7 @@ const CATEGORY_OPTIONS = [{ value: 'all', label: '전체' }, ...CATEGORIES]
 
 const LINKS = [
   { to: '/', label: '홈', children: CATEGORY_OPTIONS },
+  { to: '/glossary', label: '용어사전' },
   { to: '/calendar', label: '경제 캘린더' },
   { to: '/community', label: '커뮤니티' },
 ]

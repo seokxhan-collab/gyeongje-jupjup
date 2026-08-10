@@ -3,7 +3,7 @@ import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 export default function AboutPage() {
   useDocumentMeta({
     title: '사이트 소개',
-    description: '경제줍줍은 국내 경제뉴스를 모아 보여주고, 매일 아침 AI가 재구성한 경제 브리핑을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
+    description: '경제줍줍은 국내 경제뉴스를 모아 보여주고, AI가 만드는 경제 브리핑·용어사전을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
   })
 
   return (
@@ -22,9 +22,10 @@ export default function AboutPage() {
         <p>
           뉴스 큐레이션 외에도 AI가 그날그날의 주요 경제 뉴스를 참고해 직접 재구성하는{' '}
           <strong>데일리 브리핑</strong>을 매일 아침 제공합니다. 원문을 그대로 옮기지 않고 AI가 새로
-          구성한 글이며, 텔레그램·이메일로 구독해 받아볼 수도 있습니다. 이와 함께 FOMC·한국은행
-          금통위·CPI·고용지표 등 주요 경제 일정을 미리 확인할 수 있는 <strong>경제 캘린더</strong>도
-          제공합니다.
+          구성한 글이며, 텔레그램·이메일로 구독해 받아볼 수도 있습니다. 뉴스 속 어려운 용어를 매일
+          하나씩 풀어 설명하는 <strong>경제 용어사전</strong>도 자체 콘텐츠로 제공합니다. 이와 함께
+          FOMC·한국은행 금통위·CPI·고용지표 등 주요 경제 일정을 미리 확인할 수 있는{' '}
+          <strong>경제 캘린더</strong>도 제공합니다.
         </p>
 
         <h3>회원 기능</h3>
@@ -42,8 +43,8 @@ export default function AboutPage() {
         </p>
 
         <p className="page-disclaimer">
-          사이트가 제공하는 데일리 브리핑은 AI가 재구성한 콘텐츠이며, 투자 판단의 참고용으로만
-          활용하시기 바랍니다. 원문 기사에 대한 저작권은 각 언론사에 있습니다.
+          사이트가 제공하는 데일리 브리핑·용어사전은 AI가 재구성한 콘텐츠이며, 투자 판단의
+          참고용으로만 활용하시기 바랍니다. 원문 기사에 대한 저작권은 각 언론사에 있습니다.
         </p>
       </article>
     </div>

@@ -1,9 +1,19 @@
 import { Link } from 'react-router-dom'
-import { CalendarDays, Send, ChevronRight } from 'lucide-react'
+import { BookOpen, CalendarDays, Send, ChevronRight } from 'lucide-react'
 
 export default function OriginalContentTeaser() {
   return (
     <div className="teaser-card">
+      <Link to="/glossary" className="teaser-item">
+        <span className="teaser-icon teaser-icon-glossary">
+          <BookOpen size={16} />
+        </span>
+        <span className="teaser-body">
+          <span className="teaser-title">경제 용어사전</span>
+          <span className="teaser-desc">오늘의 뉴스 속 용어 하나씩 쉽게 알아보기</span>
+        </span>
+        <ChevronRight size={16} className="teaser-arrow" />
+      </Link>
       <Link to="/calendar" className="teaser-item">
         <span className="teaser-icon teaser-icon-calendar">
           <CalendarDays size={16} />
