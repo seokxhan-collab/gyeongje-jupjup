@@ -12,7 +12,7 @@ import AdSlot from '../components/AdSlot.jsx'
 export default function CommunityPostPage() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const [post, setPost] = useState(null)
   const [loading, setLoading] = useState(true)
   const [reported, setReported] = useState(false)
@@ -111,7 +111,7 @@ export default function CommunityPostPage() {
 
         {!post.pinned && (
           <div className="comment-item-head community-post-actions">
-            {user?.id === post.user_id ? (
+            {user?.id === post.user_id || profile?.is_admin ? (
               <button type="button" className="comment-delete-btn" onClick={handleDelete} aria-label="글 삭제">
                 <Trash2 size={14} /> 삭제
               </button>

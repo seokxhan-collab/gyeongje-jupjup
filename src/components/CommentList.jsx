@@ -6,7 +6,7 @@ import { formatRelativeTime } from '../lib/time.js'
 import CommentForm from './CommentForm.jsx'
 
 export default function CommentList({ newsId }) {
-  const { user } = useAuth()
+  const { user, profile } = useAuth()
   const [comments, setComments] = useState([])
   const [loading, setLoading] = useState(true)
   const [reportedIds, setReportedIds] = useState(new Set())
@@ -71,7 +71,7 @@ export default function CommentList({ newsId }) {
             <div className="comment-item-head">
               <span className="comment-item-nickname">{c.profiles?.nickname ?? '알 수 없음'}</span>
               <span className="comment-item-time">{formatRelativeTime(c.created_at)}</span>
-              {user?.id === c.user_id ? (
+              {user?.id === c.user_id || profile?.is_admin ? (
                 <button
                   type="button"
                   className="comment-delete-btn"
