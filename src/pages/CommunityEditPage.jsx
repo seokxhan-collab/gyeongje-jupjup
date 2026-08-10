@@ -108,9 +108,9 @@ export default function CommunityEditPage() {
       <div className="subscribe-panel">
         <form className="auth-form" onSubmit={handleSubmit}>
           {profile?.is_admin && (
-            <label className="auth-field" style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+            <label className="admin-pin-toggle">
               <input type="checkbox" checked={pinned} onChange={(e) => setPinned(e.target.checked)} />
-              <span>공지글로 등록 (상단 고정, 삭제 불가)</span>
+              <span>공지글로 등록 (상단 고정, 일반 회원은 삭제 불가)</span>
             </label>
           )}
           <label className="auth-field">

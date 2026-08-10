@@ -1006,6 +1006,8 @@ a {
   font-size: 0.95rem;
   line-height: 1.75;
   color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 /* 좋아요/싫어요 반응 */
@@ -1177,10 +1179,12 @@ a {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
   border: none;
   background: transparent;
   color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
   cursor: pointer;
 }
 
@@ -1192,10 +1196,12 @@ a {
   margin-left: auto;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 4px;
   border: none;
   background: transparent;
   color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.82rem;
   cursor: pointer;
 }
 
@@ -1529,6 +1535,15 @@ a {
   margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid var(--border);
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+/* 여러 버튼이 한 줄에 있을 때 margin-left:auto가 각자 나눠 가지면서
+   버튼 사이 간격이 벌어지는 문제를 막기 위해, 정렬은 부모의 flex-end에 맡긴다 */
+.community-post-actions .comment-report-btn,
+.community-post-actions .comment-delete-btn {
+  margin-left: 0;
 }
 
 .subscribe-channels {
@@ -1729,6 +1744,29 @@ a {
 .auth-switch a {
   color: var(--accent);
   font-weight: 700;
+}
+
+/* 관리자 전용 "공지글로 등록" 토글 (커뮤니티 글쓰기/수정 폼) */
+.admin-pin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.admin-pin-toggle input[type='checkbox'] {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .auth-signout-btn {
