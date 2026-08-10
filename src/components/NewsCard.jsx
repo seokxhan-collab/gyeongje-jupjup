@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Bookmark, ExternalLink, MessageCircle } from 'lucide-react'
+import { Bookmark, ExternalLink, Languages, MessageCircle } from 'lucide-react'
 import { formatRelativeTime } from '../lib/time.js'
 import { categoryLabel } from '../lib/categories.js'
 import { useBookmarks } from '../lib/useBookmarks.js'
@@ -7,6 +8,11 @@ import { useBookmarks } from '../lib/useBookmarks.js'
 export default function NewsCard({ item }) {
   const { isBookmarked, toggleBookmark } = useBookmarks()
   const saved = isBookmarked(item.id)
+  const [showOriginal, setShowOriginal] = useState(false)
+
+  const hasTranslation = Boolean(item.title_ko)
+  const displayTitle = hasTranslation && !showOriginal ? item.title_ko : item.title
+  const displaySummary = hasTranslation && !showOriginal ? item.summary_ko || item.summary : item.summary
 
   return (
     <article className="news-card">
@@ -16,15 +22,25 @@ export default function NewsCard({ item }) {
           <span className={`badge badge-category badge-category-${item.category}`}>
             {categoryLabel(item.category)}
           </span>
+          {hasTranslation && (
+            <button
+              type="button"
+              className="badge badge-translate"
+              onClick={() => setShowOriginal((v) => !v)}
+            >
+              <Languages size={12} />
+              {showOriginal ? '한글 번역' : '영어 원문'}
+            </button>
+          )}
         </div>
         <span className="news-card-time">{formatRelativeTime(item.published_at)}</span>
       </div>
       <h3 className="news-card-title">
         <Link to={`/news/${item.id}`} className="news-card-title-link">
-          {item.title}
+          {displayTitle}
         </Link>
       </h3>
-      {item.summary && <p className="news-card-summary">{item.summary}</p>}
+      {displaySummary && <p className="news-card-summary">{displaySummary}</p>}
       <div className="news-card-footer">
         <div className="news-card-footer-links">
           <a className="news-card-link" href={item.link} target="_blank" rel="noopener noreferrer">
