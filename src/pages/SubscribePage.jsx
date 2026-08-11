@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { Send, Mail, MessageCircle, Check } from 'lucide-react'
+import { Send, Mail, Check } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient.js'
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
 
 const CHANNELS = [
   { id: 'telegram', label: '텔레그램', icon: Send, available: true },
   { id: 'email', label: '이메일', icon: Mail, available: true },
-  { id: 'kakao', label: '카카오톡 알림톡', icon: MessageCircle, available: false },
 ]
 
 export default function SubscribePage() {
@@ -137,16 +136,6 @@ export default function SubscribePage() {
             </div>
           )}
           {emailError && <p className="status-text status-error">{emailError}</p>}
-        </div>
-      )}
-
-      {channel === 'kakao' && (
-        <div className="subscribe-panel">
-          <h3 className="subscribe-panel-title">카카오톡 알림톡은 준비 중입니다</h3>
-          <p className="subscribe-panel-desc">
-            카카오톡 알림톡은 사업자 등록과 별도의 심사 절차가 필요한 서비스라 아직 준비 중입니다. 지금은
-            텔레그램으로 먼저 받아보실 수 있어요.
-          </p>
         </div>
       )}
     </div>
