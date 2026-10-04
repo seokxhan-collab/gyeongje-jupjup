@@ -1,8 +1,10 @@
 import { useDocumentMeta } from '../lib/useDocumentMeta.js'
+import { Link } from 'react-router-dom'
 
 export default function AboutPage() {
   useDocumentMeta({
     title: '사이트 소개',
+    noindex: true,
     description: '경제줍줍은 국내 경제뉴스를 모아 보여주고, AI가 만드는 경제 브리핑·용어사전을 함께 제공하는 뉴스 큐레이션 서비스입니다.',
   })
 
@@ -13,6 +15,7 @@ export default function AboutPage() {
       </div>
 
       <article className="legal-article">
+        <p><Link to="/">경제줍줍 홈에서 오늘의 경제뉴스 보기 →</Link></p>
         <p>
           경제줍줍은 국내 주요 언론사의 경제 뉴스를 한 곳에 모아 보여주는 뉴스 큐레이션 서비스입니다.
           매일경제, 연합뉴스, 이투데이 등 국내 매체의 경제 기사를 수집해 분야별로 정리해 제공합니다.

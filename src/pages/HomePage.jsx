@@ -20,8 +20,8 @@ export default function HomePage({ search }) {
   const [activeSources, setActiveSources] = useState(new Set())
 
   useDocumentMeta({
-    title: '국내 경제뉴스 모음',
-    description: '국내 경제뉴스를 한 곳에 모아 보여주는 뉴스 모음 사이트. 매일 아침 AI가 재구성한 경제 브리핑도 함께 제공합니다.',
+    title: '오늘의 경제뉴스·데일리 브리핑',
+    description: '경제줍줍에서 오늘의 국내 경제뉴스를 한눈에 확인하세요. 매일경제·연합뉴스·이투데이 뉴스, AI 데일리 브리핑, 경제 용어사전과 주요 경제 일정을 제공합니다.',
   })
 
   function toggleSource(source) {
