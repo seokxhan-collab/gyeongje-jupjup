@@ -5,9 +5,9 @@ const ADS_ENABLED = import.meta.env.VITE_ADS_ENABLED === 'true'
 // 카카오애드핏(https://adfit.kakao.com)에서 사이트를 등록하고 발급받은 광고단위 코드를
 // .env(.local)에 아래 이름으로 넣으면 해당 슬롯에 광고가 노출된다. 값이 비어있으면 해당 슬롯은 렌더링되지 않는다.
 const AD_UNITS = {
-  bannerDesktop: { id: import.meta.env.VITE_ADFIT_UNIT_BANNER_DESKTOP, width: 728, height: 90 },
-  bannerMobile: { id: import.meta.env.VITE_ADFIT_UNIT_BANNER_MOBILE, width: 320, height: 100 },
-  rectangle: { id: import.meta.env.VITE_ADFIT_UNIT_RECTANGLE, width: 300, height: 250 },
+  bannerDesktop: { id: import.meta.env.VITE_ADFIT_UNIT_BANNER_DESKTOP?.trim(), width: 728, height: 90 },
+  bannerMobile: { id: import.meta.env.VITE_ADFIT_UNIT_BANNER_MOBILE?.trim(), width: 320, height: 100 },
+  rectangle: { id: import.meta.env.VITE_ADFIT_UNIT_RECTANGLE?.trim(), width: 300, height: 250 },
 }
 
 function useIsDesktop() {
@@ -38,8 +38,13 @@ function scheduleAdFitScan() {
   setTimeout(() => {
     scanScheduled = false
     const script = document.createElement('script')
-    script.src = '//t1.daumcdn.net/kas/static/ba.min.js'
+    script.src = 'https://t1.kakaocdn.net/kas/static/ba.min.js'
+    script.type = 'text/javascript'
+    script.charset = 'utf-8'
     script.async = true
+    script.onerror = () => {
+      console.warn('[AdFit] 광고 스크립트를 불러오지 못했습니다. 브라우저 차단 설정 또는 네트워크를 확인해주세요.')
+    }
     document.body.appendChild(script)
   }, 0)
 }
